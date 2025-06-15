@@ -1,0 +1,58 @@
+.graph-card {
+    border-radius: 8px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--white);
+}
+
+.dashboard-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    color:white;
+    font-weight: bold;
+    text-align: center !important;
+    background-color: #9c0f3f;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+i.bx {
+    color: white;
+    display: flex;
+    align-content: center;
+}
+
+.graph-card-header h3 {
+    margin: 0;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.graph-card-footer {
+    padding: 0;
+}
+
+.graph-card-footer iframe {
+    width: 100%;
+    border: none;
+    overflow: auto;
+}
+
+/* Additional styles for responsiveness */
+@media (max-width: 768px) {
+    .graph-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .graph-card-header {
+        margin-top: 10px;
+    }
+}
