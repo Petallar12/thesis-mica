@@ -14,8 +14,12 @@
         <p>We have received your registration with the following details:</p>
         <ul>
             <li>Name: {{ $donor->first_name }} {{ $donor->middle_name }} {{ $donor->last_name }}</li>
+            <li>Age: {{ $donor->age }}</li>
+            <li>Gender: {{ $donor->gender }}</li>
             <li>Blood Type: {{ $donor->blood_type }}</li>
-            <li>Organ: {{ $donor->organ_needed }}</li>
+            <li>Time of Registration: {{ $donor->created_at->format('F d, Y h:i A') }}</li>
+            <li>Organ Needed: {{ $donor->organ_needed }}</li>
+            <li>Government ID Issued number: {{ $donor->goverment_id_number }}</li>
         </ul>
         
         <p>We will keep your information secure and confidential. If you have any questions or need to update your information, please don't hesitate to contact us.</p>
