@@ -70,7 +70,6 @@
                           <option value="">Select Gender</option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
-                          <option value="Other">Other</option>
                       </select>
                   </div>
               </div>
@@ -91,7 +90,7 @@
                       <input type="text" name="donation_preferences" required />
                   </div>
                   <div class="input-group">
-                      <label>Organ Available/Needed *</label>
+                      <label>Donate Organ *</label>
                       <input type="text" name="organ_needed" required />
                   </div>
               </div>
