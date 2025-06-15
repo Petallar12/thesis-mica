@@ -4,6 +4,7 @@
         <div class="modal-content">
             <span class="close-btn" data-bs-dismiss="modal" aria-label="Close">&times;</span>
             <h2 class="modal-title" id="editRecipientModalLabel">Edit Recipient</h2>
+            <div id="editRecipientSuccessMessage" class="success-message" style="display: none;">Recipient updated successfully!</div>
             
             <div class="tabs">
                 <button type="button" class="tab active" data-tab="edit-personal">Personal Information</button>
@@ -122,4 +123,67 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editRecipientForm = document.getElementById('editRecipientForm');
+        const updateRecipientBtn = document.getElementById('updateRecipientBtn');
+        const editRecipientSuccessMessage = document.getElementById('editRecipientSuccessMessage');
+        const editRecipientModal = new bootstrap.Modal(document.getElementById('editRecipientModal'));
+
+        if (updateRecipientBtn && editRecipientForm) {
+            updateRecipientBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Disable the button to prevent double submission
+                updateRecipientBtn.disabled = true;
+                updateRecipientBtn.textContent = 'Updating...';
+
+                const recipientId = editRecipientForm.action.split('/').pop(); // Extract ID from action URL
+                const formData = new FormData(editRecipientForm);
+
+                fetch(`/recipients/${recipientId}`, {
+                    method: 'POST', // Use POST for PUT method with _method field
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: formData
+                })
+                .then(response => {
+                    // Log the full response to see its status and headers
+                    console.log('Raw Response:', response);
+
+                    if (!response.ok) {
+                        // If response is not OK (e.g., 400, 500), try to parse JSON to get server-side error messages
+                        return response.json().then(errorData => {
+                            // Throw an error with the server's message, or a default one
+                            throw new Error(errorData.message || `HTTP error! Status: ${response.status}.`);
+                        }).catch(() => {
+                            // If JSON parsing fails for non-OK response (e.g., non-JSON response from server)
+                            throw new Error(`HTTP error! Status: ${response.status}. Response was not valid JSON or was empty.`);
+                        });
+                    }
+                    // If response is OK, proceed to parse JSON for success/failure in the 'data' object
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        editRecipientForm.style.display = 'none';
+                        editRecipientSuccessMessage.style.display = 'block';
+                        setTimeout(() => {
+                            editRecipientModal.hide();
+                            location.reload();
+                        }, 3000); // Reload after 3 seconds
+                    } else {
+                        // This block catches server-side logic errors returning success:false (e.g., specific validation logic not caught by 422)
+                        alert(data.message || 'An unexpected error occurred during processing.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch Error:', error);
+                });
+            });
+        }
+    });
+</script> 
