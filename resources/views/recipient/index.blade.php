@@ -65,10 +65,10 @@
                             <a href="{{ route('recipients.edit', $recipient->id) }}" class="actionBtn" title="Edit Recipient">
                                 <i class="fa-solid fa-square-pen"></i>
                             </a>
-                            <form action="{{ route('recipients.destroy', $recipient->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <form action="{{ route('recipients.destroy', $recipient->id) }}" method="POST" class="inline delete-form">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="actionBtn" title="Delete Recipient">
+                                <button type="button" class="actionBtn delete-recipient-btn" title="Delete Recipient" data-id="{{ $recipient->id }}">
                                     <i class="fa-solid fa-circle-minus"></i>
                                 </button>
                                 
@@ -143,13 +143,13 @@
             });
 
             // Handle show button click
-            $('.show-recipient').on('click', function(e) {
+            $(document).on('click', '.show-recipient', function(e) {
                 e.preventDefault();
                 showRecipientDetails($(this).data('id'));
             });
 
             // Handle edit button click
-            $('.actionBtn[title="Edit Recipient"]').on('click', function(e) {
+            $(document).on('click', '.actionBtn[title="Edit Recipient"]', function(e) {
                 e.preventDefault();
                 const recipientId = $(this).closest('tr').find('td:first').text();
                 editRecipientDetails(recipientId);
@@ -248,15 +248,22 @@
             $('#updateRecipientBtn').on('click', function() {
                 const form = $('#editRecipientForm');
                 const formData = new FormData(form[0]);
-                
+
+                // Disable the button to prevent double submission
+                $(this).prop('disabled', true).text('Updating...');
+
                 $.ajax({
                     url: form.attr('action'),
-                    type: 'POST',
+                    type: 'POST', // Use POST for PUT method with _method field
                     data: formData,
                     processData: false,
                     contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     success: function(response) {
                         if (response.success) {
+                            $('#editRecipientModal').modal('hide');
                             location.reload();
                         } else {
                             alert('Failed to update recipient.');
@@ -272,15 +279,22 @@
             $('#saveRecipientBtn').on('click', function() {
                 const form = $('#createRecipientForm');
                 const formData = new FormData(form[0]);
-                
+
+                // Disable the button to prevent double submission
+                $(this).prop('disabled', true).text('Saving...');
+
                 $.ajax({
                     url: form.attr('action'),
                     type: 'POST',
                     data: formData,
                     processData: false,
                     contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     success: function(response) {
                         if (response.success) {
+                            $('#createRecipientModal').modal('hide');
                             location.reload();
                         } else {
                             alert('Failed to create recipient.');
@@ -292,17 +306,45 @@
                 });
             });
 
-            // Helper function to categorize information
+            // Handle delete button click (new)
+            $(document).on('click', '.delete-recipient-btn', function(e) {
+                e.preventDefault();
+                const recipientId = $(this).data('id');
+                const form = $(this).closest('form');
+                
+                if (confirm('Are you sure you want to delete this recipient?')) {
+                    $.ajax({
+                        url: `/recipients/${recipientId}`,
+                        type: 'POST', // Send as POST for DELETE method
+                        data: { _method: 'DELETE', _token: $('meta[name="csrf-token"]').attr('content') },
+                        success: function(response) {
+                            if (response.success) {
+                                location.reload();
+                            } else {
+                                console.error('Error deleting recipient:', response.message);
+                                alert('Failed to delete recipient: ' + (response.message || 'An unknown error occurred.'));
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('AJAX Error deleting recipient:', xhr.responseText);
+                            alert('An error occurred during deletion. Please try again.');
+                        }
+                    });
+                }
+            });
+
+            // Helper function to categorize information (for show modal)
             function categorizeInfo(label) {
                 const medicalFields = ['Medical History', 'Waiting Time', 'Organ Needed', 'Donation Preferences'];
                 const contactFields = ['Email', 'Contact', 'Encoded'];
-                
+
                 if (medicalFields.some(field => label.includes(field))) {
                     return 'medical';
                 } else if (contactFields.some(field => label.includes(field))) {
                     return 'contact';
+                } else {
+                    return 'personal';
                 }
-                return 'personal';
             }
         });
     </script>

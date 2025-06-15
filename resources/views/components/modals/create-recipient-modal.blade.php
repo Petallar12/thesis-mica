@@ -72,6 +72,8 @@
                                 <select name="status" required>
                                     <option value="">Select Status</option>
                                     <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+
                                 </select>
                             </div>
                         </div>

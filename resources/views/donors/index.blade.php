@@ -141,13 +141,13 @@
             });
 
             // Handle show button click
-            $('.show-donor').on('click', function(e) {
+            $(document).on('click', '.show-donor', function(e) {
                 e.preventDefault();
                 showDonorDetails($(this).data('id'));
             });
 
             // Handle edit button click
-            $('.actionBtn[title="Edit Donor"]').on('click', function(e) {
+            $(document).on('click', '.actionBtn[title="Edit Donor"]', function(e) {
                 e.preventDefault();
                 const donorId = $(this).closest('tr').find('td:first').text();
                 editDonorDetails(donorId);
