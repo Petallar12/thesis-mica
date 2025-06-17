@@ -108,12 +108,12 @@
                                 <input type="text" name="contact_number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"  />
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Encoded By *</label>
-                                <input type="text" name="encoded_by" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-gray-700 font-normal" value="{{ Auth::user()->name }}"  readonly />
+                                <label class="block text-sm font-medium text-gray-700">Encoded By</label>
+                                <input type="text" name="encoded_by" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-gray-700 font-normal" value="{{ Auth::user()->name }}" readonly />
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Encoded Date *</label>
-                                <input type="date" name="encoded_date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-gray-700 font-normal" value="{{ date('Y-m-d') }}"  readonly />
+                                <label class="block text-sm font-medium text-gray-700">Encoded Date</label>
+                                <input type="date" name="encoded_date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-gray-700 font-normal" value="{{ date('Y-m-d') }}" readonly />
                             </div>
                         </div>
                     </div>

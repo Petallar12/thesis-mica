@@ -105,12 +105,12 @@
                                 <input type="text" name="contact_number" required />
                             </div>
                             <div class="input-group">
-                                <label>Encoded By *</label>
-                                <input type="text" name="encoded_by" value="{{ Auth::user()->name }}" required readonly />
+                                <label>Encoded By</label>
+                                <input type="text" name="encoded_by" value="{{ Auth::user()->name }}" readonly />
                             </div>
                             <div class="input-group">
-                                <label>Encoded Date *</label>
-                                <input type="date" name="encoded_date" value="{{ date('Y-m-d') }}" required readonly />
+                                <label>Encoded Date</label>
+                                <input type="date" name="encoded_date" value="{{ date('Y-m-d') }}" readonly />
                             </div>
                         </div>
                     </div>

@@ -108,8 +108,8 @@ class DonorController extends Controller
             'gender' => 'required|string|max:20',
             'status' => 'required|string|max:20',
             'contact_number' => 'required|string|max:100',
-            'encoded_by' => 'required|string|max:100',
-            'encoded_date' => 'required|date'
+            'encoded_by' => 'nullable|string|max:100',
+            'encoded_date' => 'nullable|date'
         ]);
 
         $donor->update($validated);

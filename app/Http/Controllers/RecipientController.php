@@ -77,7 +77,9 @@ class RecipientController extends Controller
                 'waiting_time' => 'required|numeric',
                 'contact_information' => 'required|email',
                 'contact_number' => 'required',
-                'status' => 'required'
+                'status' => 'required',
+                'encoded_by' => 'nullable',
+                'encoded_date' => 'nullable'
             ]);
 
             $recipient = Recipients::findOrFail($id);
