@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RecipientController;
 // use App\Http\Controllers\AccountUserController;
 use App\Http\Controllers\NewUserRegistrationController;
+use App\Http\Controllers\OrganStatusController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,6 +42,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::middleware('auth')->group(function () {
     Route::resource('donors', DonorController::class);
     Route::resource('recipients', RecipientController::class);
+    Route::get('/organ-status', [OrganStatusController::class, 'index'])->name('organ-status.index');
 });
 
 require __DIR__.'/auth.php';
