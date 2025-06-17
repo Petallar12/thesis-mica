@@ -43,6 +43,7 @@
                                 <option value="Female">Female</option>
                             </select>
                         </th>
+                        <th>Organ Needed</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -56,7 +57,9 @@
                         <td>{{ $recipient->age }}</td>
                         <td>{{ $recipient->blood_type }}</td>
                         <td>{{ $recipient->gender }}</td>
+                        <td>{{ $recipient->organ_needed }}</td>
                         <td>{{ $recipient->status }}</td>
+
                         <td class="py-2 px-4 border-b flex gap-4 justify-center">
                             <a href="#" class="actionBtn show-recipient" data-id="{{ $recipient->id }}" title="Show Recipient">
                                 <i class="fa-solid fa-eye"></i>

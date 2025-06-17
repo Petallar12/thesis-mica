@@ -36,12 +36,14 @@
                             </select>
                         </th>
                         <th>
-                            <select class="gender-filter" id="gender-filter">
+                            Gender
+                            {{-- <select class="gender-filter" id="gender-filter">
                                 <option value="">Genders</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
-                            </select>
+                            </select> --}}
                         </th>
+                        <th>Organ Donated</th>
                         <th>Donor Status</th>
                         <th>Actions</th>
                     </tr>
@@ -55,6 +57,7 @@
                         <td>{{ $donor->age }}</td>
                         <td>{{ $donor->blood_type }}</td>
                         <td>{{ $donor->gender }}</td>
+                        <td>{{ $donor->organ_needed }}</td>
                         <td>{{ $donor->status }}</td>
                         <td class="py-2 px-4 border-b flex gap-4 justify-center">
                             <a href="#" class="actionBtn show-donor" data-id="{{ $donor->id }}" title="Show Donor">

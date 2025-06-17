@@ -87,7 +87,7 @@
                                 <input type="text" name="waiting_time" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"  />
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Organ Needed *</label>
+                                <label class="block text-sm font-medium text-gray-700">Organ Donated *</label>
                                 <input type="text" name="organ_needed" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"  />
                             </div>
                             <div>
