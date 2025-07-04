@@ -24,7 +24,7 @@
                     <div id="edit-personal" class="tab-content active">
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group">
-                                <label>First Name *</label>
+                                <label>First Name <span class="required">*</span></label>
                                 <input type="text" name="first_name" required />
                             </div>
                             <div class="input-group">
@@ -32,15 +32,15 @@
                                 <input type="text" name="middle_name" />
                             </div>
                             <div class="input-group">
-                                <label>Last Name *</label>
+                                <label>Last Name <span class="required">*</span></label>
                                 <input type="text" name="last_name" required />
                             </div>
                             <div class="input-group">
-                                <label>Government ID Number *</label>
+                                <label>Government ID Number <span class="required">*</span></label>
                                 <input type="text" name="goverment_id_number" required />
                             </div>
                             <div class="input-group">
-                                <label>Blood Type *</label>
+                                <label>Blood Type <span class="required">*</span></label>
                                 <select name="blood_type" required>
                                     <option value="">Select Blood Type</option>
                                     <option value="O+">O+</option>
@@ -54,11 +54,11 @@
                                 </select>
                             </div>
                             {{-- <div class="input-group">
-                                <label>Age *</label>
+                                <label>Age <span class="required">*</span></label>
                                 <input type="number" name="age" required min="0" />
                             </div> --}}
                             <div class="input-group">
-                                <label>Gender *</label>
+                                <label>Gender <span class="required">*</span></label>
                                 <select name="gender" required>
                                     <option value="">Select Gender</option>
                                     <option value="Male">Male</option>
@@ -80,7 +80,7 @@
                                 <input type="text" name="address" />
                             </div>
                             <div class="input-group">
-                                <label>Status *</label>
+                                <label>Status <span class="required">*</span></label>
                                 <select name="status" required>
                                     <option value="">Select Status</option>
                                     <option value="Active">Active</option>
@@ -118,7 +118,7 @@
                     <div id="edit-medical" class="tab-content">
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group">
-                                <label>Medical History *</label>
+                                <label>Medical History <span class="required">*</span></label>
                                 <input type="text" name="medical_history" />
                             </div>
                             <div class="input-group">
@@ -146,7 +146,7 @@
                                 <input type="number" name="priority_score" min="0" max="100" />
                             </div>
                             <div class="input-group">
-                                <label>Waiting Time (months) *</label>
+                                <label>Waiting Time (months) <span class="required">*</span></label>
                                 <input type="number" name="waiting_time" required />
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                     <div id="edit-transplant" class="tab-content">
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group">
-                                <label>Organ Needed *</label>
+                                <label>Organ Needed <span class="required">*</span></label>
                                 <select name="organ_needed" id="edit-organ-select" required>
                                     <option value="">Select Organ</option>
                                 </select>
@@ -218,11 +218,11 @@
                     <div id="edit-contact" class="tab-content">
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group">
-                                <label>Email Address *</label>
+                                <label>Email Address <span class="required">*</span></label>
                                 <input type="email" name="contact_information" required />
                             </div>
                             <div class="input-group">
-                                <label>Contact Number *</label>
+                                <label>Contact Number <span class="required">*</span></label>
                                 <input type="text" name="contact_number" required />
                             </div>
                             <div class="input-group">

@@ -9,7 +9,9 @@
       overflow: auto;
       background-color: rgba(0,0,0,0);
   }
-
+  .required {
+    color: red;
+  }
   .modal-content {
       background-color: #fff;
       margin: 5% auto;
