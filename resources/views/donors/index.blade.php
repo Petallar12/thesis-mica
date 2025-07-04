@@ -67,14 +67,14 @@
                             <a href="{{ route('donors.edit', $donor->id) }}" class="actionBtn" title="Edit Donor">
                                 <i class="fa-solid fa-square-pen"></i>
                             </a>
-                            <form action="{{ route('donors.destroy', $donor->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure?')">
+                            <form class="inline delete-form">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="actionBtn" title="Delete Donor">
+                                <button type="button" class="actionBtn delete-donor-btn" data-id="{{ $donor->id }}" title="Delete Donor">
                                     <i class="fa-solid fa-circle-minus"></i>
                                 </button>
-                                @endif
                             </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -119,6 +119,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     {{-- DataTables JS --}}
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function () {
@@ -362,6 +364,52 @@
                 if (contactFields.includes(label)) return 'contact';
                 return 'personal'; // default to personal if not found
             }
+
+            // Handle delete button click
+            $(document).on('click', '.delete-donor-btn', function(e) {
+                e.preventDefault();
+                const donorId = $(this).data('id');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Are you sure you want to delete this donor? You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/donors/${donorId}`,
+                            type: 'POST',
+                            data: { _method: 'DELETE', _token: $('meta[name="csrf-token"]').attr('content') },
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Donor has been deleted.',
+                                        'success'
+                                    ).then(() => location.reload());
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        response.message || 'Failed to delete donor.',
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire(
+                                    'Error!',
+                                    'An error occurred during deletion. Please try again.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
         });
     </script>
 </x-app-layout>

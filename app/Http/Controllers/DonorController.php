@@ -123,9 +123,12 @@ class DonorController extends Controller
     /**
      * Delete a donor (optional).
      */
-    public function destroy(Donor $donor)
+    public function destroy(Request $request, Donor $donor)
     {
         $donor->delete();
+        if ($request->ajax()) {
+            return response()->json(['success' => true]);
+        }
         return redirect()->route('donors.index')->with('success', 'Donor deleted successfully.');
     }
 }
