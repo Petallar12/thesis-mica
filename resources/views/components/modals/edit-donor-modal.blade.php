@@ -14,7 +14,11 @@
             
             <div class="tabs">
                 <button type="button" class="tab active" data-tab="edit-personal">Personal Information</button>
+                <button type="button" class="tab" data-tab="edit-kin-information">Kin Information</button>
                 <button type="button" class="tab" data-tab="edit-medical">Medical Information</button>
+                <button type="button" class="tab" data-tab="edit-organ-specific-information">Organ-Specific Information</button>
+                <button type="button" class="tab" data-tab="edit-system-information">System Information</button>
+                <button type="button" class="tab" data-tab="edit-others">Others</button>
                 <button type="button" class="tab" data-tab="edit-contact">Contact Information</button>
             </div>
 
@@ -76,6 +80,27 @@
                         </div>
                     </div>
 
+                    <div id="edit-kin-information" class="tab-content">
+                        <div class="form-group grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Father's Name</label>
+                                <input type="text" name="father_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Mother's Name</label>
+                                <input type="text" name="mother_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Spouse's Name</label>
+                                <input type="text" name="spouse_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Number of Children</label>
+                                <input type="text" name="number_of_children" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="edit-medical" class="tab-content">
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div>
@@ -93,6 +118,57 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Donation Preferences *</label>
                                 <input type="text" name="donation_preferences" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"  />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="edit-organ-specific-information" class="tab-content">
+                        <div class="form-group grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Organ Donated</label>
+                                <input type="text" name="organ_donated" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Organ Type</label>
+                                <input type="text" name="organ_type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Organ Recovery</label>
+                                <input type="text" name="organ_recovery" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Organ Recovery Time</label>
+                                <input type="text" name="organ_recovery_time" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="edit-system-information" class="tab-content">
+                        <div class="form-group grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">System Donated</label>
+                                <input type="text" name="system_donated" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">System Type</label>
+                                <input type="text" name="system_type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">System Recovery</label>
+                                <input type="text" name="system_recovery" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">System Recovery Time</label>
+                                <input type="text" name="system_recovery_time" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="edit-others" class="tab-content">
+                        <div class="form-group grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Others</label>
+                                <input type="text" name="others" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
                             </div>
                         </div>
                     </div>

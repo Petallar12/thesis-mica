@@ -19,15 +19,15 @@ class RecipientController extends Controller
             $request->validate([
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'gender' => 'required',
+                // 'gender' => 'required',
                 'goverment_id_number' => 'required|unique:recipients',
                 'blood_type' => 'required',
-                'age' => 'required|numeric',
+                // 'age' => 'required|numeric',
                 'organ_needed' => 'required',
-                'medical_history' => 'required',
-                'waiting_time' => 'required|numeric',
+                // 'medical_history' => 'required',
+                // 'waiting_time' => 'required|numeric',
                 'contact_information' => 'required|email',
-                'contact_number' => 'required',
+                // 'contact_number' => 'required',
                 'status' => 'required'
             ]);
 
