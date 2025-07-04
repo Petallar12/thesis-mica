@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Recipients;
 use Illuminate\Http\Request;
+use App\Mail\RecipientRegistrationConfirmation;
+use Illuminate\Support\Facades\Mail;
 
 class RecipientController extends Controller
 {
@@ -36,7 +38,17 @@ class RecipientController extends Controller
             $recipient->encoded_date = now();
             $recipient->save();
 
-            return response()->json(['success' => true]);
+            // Send notification email if contact_information is a valid email
+            if (filter_var($recipient->contact_information, FILTER_VALIDATE_EMAIL)) {
+                try {
+                    Mail::to($recipient->contact_information)
+                        ->send(new RecipientRegistrationConfirmation($recipient));
+                } catch (\Exception $e) {
+                    \Log::error('Failed to send recipient email: ' . $e->getMessage());
+                }
+            }
+
+            return response()->json(['success' => true, 'message' => 'Thank you for registering as a recipient!']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 422);
         }
@@ -65,22 +77,22 @@ class RecipientController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $request->validate([
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'gender' => 'required',
-                'goverment_id_number' => 'required|unique:recipients,goverment_id_number,'.$id,
-                'blood_type' => 'required',
-                'age' => 'required|numeric',
-                'organ_needed' => 'required',
-                'medical_history' => 'required',
-                'waiting_time' => 'required|numeric',
-                'contact_information' => 'required|email',
-                'contact_number' => 'required',
-                'status' => 'required',
-                'encoded_by' => 'nullable',
-                'encoded_date' => 'nullable'
-            ]);
+            // $request->validate([
+            //     'first_name' => 'required',
+            //     'last_name' => 'required',
+            //     'gender' => 'required',
+            //     // 'goverment_id_number' => 'required|unique:recipients,goverment_id_number,'.$id,
+            //     'blood_type' => 'required',
+            //     // 'age' => 'required|numeric',
+            //     'organ_needed' => 'required',
+            //     // 'medical_history' => 'required',
+            //     // 'waiting_time' => 'required|numeric',
+            //     'contact_information' => 'required|email',
+            //     // 'contact_number' => 'required',
+            //     'status' => 'required',
+            //     'encoded_by' => 'nullable',
+            //     'encoded_date' => 'nullable'
+            // ]);
 
             $recipient = Recipients::findOrFail($id);
             $recipient->update($request->all());

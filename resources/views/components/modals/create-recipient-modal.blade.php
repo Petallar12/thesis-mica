@@ -22,7 +22,8 @@
             </div>
 
             <div class="modal-body">
-                <div id="createSuccessMessage" class="success-message"></div>
+                <div id="recipientNotification" class="success-message" style="display:none;"></div>
+                <div id="recipientError" class="error-message" style="display:none; background: #e74c3c; color: #fff; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; text-align: center;"></div>
                 <form id="createRecipientForm" method="POST" action="{{ route('recipients.store') }}" class="mt-4">
                     @csrf
 

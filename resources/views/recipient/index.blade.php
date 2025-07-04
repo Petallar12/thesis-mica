@@ -297,9 +297,14 @@
             $('#saveRecipientBtn').on('click', function() {
                 const form = $('#createRecipientForm');
                 const formData = new FormData(form[0]);
+                const saveBtn = $(this);
 
-                // Disable the button to prevent double submission
-                $(this).prop('disabled', true).text('Saving...');
+                // Hide notifications
+                $('#recipientNotification').hide();
+                $('#recipientError').hide();
+
+                // Disable the button and set text
+                saveBtn.prop('disabled', true).text('Saving...');
 
                 $.ajax({
                     url: form.attr('action'),
@@ -312,14 +317,24 @@
                     },
                     success: function(response) {
                         if (response.success) {
-                            $('#createRecipientModal').modal('hide');
-                            location.reload();
+                            $('#recipientNotification').text(response.message || 'Recipient created successfully!').show();
+                            saveBtn.text('Saved!');
+                            setTimeout(function() {
+                                $('#createRecipientModal').modal('hide');
+                                location.reload();
+                            }, 1500);
                         } else {
-                            alert('Failed to create recipient.');
+                            $('#recipientError').text(response.message || 'Failed to create recipient.').show();
+                            saveBtn.prop('disabled', false).text('Save');
                         }
                     },
-                    error: function() {
-                        alert('Failed to create recipient.');
+                    error: function(xhr) {
+                        let errorMsg = 'Failed to create recipient.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMsg = xhr.responseJSON.message;
+                        }
+                        $('#recipientError').text(errorMsg).show();
+                        saveBtn.prop('disabled', false).text('Save');
                     }
                 });
             });
