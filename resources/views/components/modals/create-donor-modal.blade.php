@@ -184,12 +184,11 @@
                             <div class="input-group"><label>Contact Number</label><input type="text" name="contact_number" /></div>
                         </div>
                     </div> --}}
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="submit-btn" id="saveDonorBtn">Save</button>
+                    </div>
                 </form>
-            </div>
-            
-            <div class="modal-footer">
-                <button type="button" class="cancel-btn" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="cancel-btn" id="saveDonorBtn">Save</button>
             </div>
         </div>
     </div>
