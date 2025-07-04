@@ -33,17 +33,17 @@ class DonorController extends Controller
     {
         $validated = $request->validate([
             'first_name' => 'required|string|max:100',
-            'middle_name' => 'required|string|max:100',
+            // 'middle_name' => 'required|string|max:100',
             'last_name' => 'required|string|max:100',
-            'goverment_id_number' => 'required|string|max:100|unique:donors,goverment_id_number',
-            'contact_information' => 'required|string|max:100',
+            // 'goverment_id_number' => 'required|string|max:100|unique:donors,goverment_id_number',
+            // 'contact_information' => 'required|string|max:100',
             'blood_type' => 'required|string|max:100',
-            'age' => 'required|integer|min:0',
+            // 'age' => 'required|integer|min:0',
             'organ_needed' => 'required|string|max:100',
-            'medical_history' => 'required|string|max:255',
-            'waiting_time' => 'required|string|max:255',
-            'donation_preferences' => 'required|string|max:255',
-            'gender' => 'required|string|max:20',
+            // 'medical_history' => 'required|string|max:255',
+            // 'waiting_time' => 'required|string|max:255',
+            // 'donation_preferences' => 'required|string|max:255',
+            // 'gender' => 'required|string|max:20',
         ]);
 
         $donor = Donor::create($validated);
@@ -95,21 +95,17 @@ class DonorController extends Controller
     {
         $validated = $request->validate([
             'first_name' => 'required|string|max:100',
-            'middle_name' => 'required|string|max:100',
+            // 'middle_name' => 'required|string|max:100',
             'last_name' => 'required|string|max:100',
-            'goverment_id_number' => 'required|string|max:100|unique:donors,goverment_id_number,' . $donor->id,
-            'contact_information' => 'required|string|max:100',
+            // 'goverment_id_number' => 'required|string|max:100|unique:donors,goverment_id_number',
+            // 'contact_information' => 'required|string|max:100',
             'blood_type' => 'required|string|max:100',
-            'age' => 'required|integer|min:0',
+            // 'age' => 'required|integer|min:0',
             'organ_needed' => 'required|string|max:100',
-            'medical_history' => 'required|string|max:255',
-            'waiting_time' => 'required|string|max:255',
-            'donation_preferences' => 'required|string|max:255',
-            'gender' => 'required|string|max:20',
-            'status' => 'required|string|max:20',
-            'contact_number' => 'required|string|max:100',
-            'encoded_by' => 'nullable|string|max:100',
-            'encoded_date' => 'nullable|date'
+            // 'medical_history' => 'required|string|max:255',
+            // 'waiting_time' => 'required|string|max:255',
+            // 'donation_preferences' => 'required|string|max:255',
+            // 'gender' => 'required|string|max:20',
         ]);
 
         $donor->update($validated);
