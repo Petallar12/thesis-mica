@@ -12,25 +12,27 @@ class Donor extends Model
     protected $table = 'donors';
 
     protected $fillable = [
+    //Personal Information: (Tab)
         'id',
         'first_name',
         'middle_name',
         'last_name',
         'gender',
         // 'birthday', 
+        'age',
         // 'nationality',
         'contact_number',
         'contact_information', //email address
         'goverment_id_number',
         // 'address',
-    //next of kin information
+    //next of kin information (tab)
         //'kin_fullname',
         //'relationship_to_donor',
         //'kin_contact_number',
         //'kin_email',
         //'kin_address',
         //'kin_consent',
-    //Medical Information
+    //Medical Information (tab) 
         'blood_type',
         //'height',
         //'weight',
@@ -39,9 +41,10 @@ class Donor extends Model
         'medical_history',
         //'communicable_diseases',
         //'organ_viability_status',
-        'status', //donor status
+        //'donor status',
+        'status', 
         //'consent_type',
-    //Organ-Specific Information:
+    //Organ-Specific Information:(tab)
         'organ_needed', //Organ Available
         //'organ_size',
         //'ogran_function',
@@ -50,18 +53,24 @@ class Donor extends Model
         //'condition_of_organs',
         //'organ_compability',
         //'organ_recovery_team',
-    //System Information
+    //System Information(tab)
         //'donor_card_registration_date',
         //'registration_method',
         //'notification_set_to_family',
         //'donor_card_qr_code',
         //'donor_status',
 
+
+    //Others (tab)
+        // 'donation_type',
+        // 'donation_purpose',
+        // 'condition_for_donation',
+        // 'signature',
+        // 'todays_date',
         'waiting_time',
         'donation_preferences',
         'encoded_by',
         'encoded_date',
 
-        'age'
     ];
 }

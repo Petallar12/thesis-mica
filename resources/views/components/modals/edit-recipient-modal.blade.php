@@ -53,10 +53,10 @@
                                     <option value="AB-">AB-</option>
                                 </select>
                             </div>
-                            <div class="input-group">
+                            {{-- <div class="input-group">
                                 <label>Age *</label>
                                 <input type="number" name="age" required min="0" />
-                            </div>
+                            </div> --}}
                             <div class="input-group">
                                 <label>Gender *</label>
                                 <select name="gender" required>
