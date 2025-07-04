@@ -71,7 +71,9 @@
                             </div>
                             <div class="input-group">
                                 <label>Nationality</label>
-                                <input type="text" name="nationality" />
+                                <select name="nationality" id="edit-nationality-select">
+                                    <option value="">Select Country</option>
+                                </select>
                             </div>
                             <div class="input-group">
                                 <label>Address</label>
@@ -154,7 +156,9 @@
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group">
                                 <label>Organ Needed *</label>
-                                <input type="text" name="organ_needed" required />
+                                <select name="organ_needed" id="edit-organ-select" required>
+                                    <option value="">Select Organ</option>
+                                </select>
                             </div>
                             <div class="input-group">
                                 <label>Match Attempts</label>
@@ -248,6 +252,8 @@
         const updateRecipientBtn = document.getElementById('updateRecipientBtn');
         const editRecipientSuccessMessage = document.getElementById('editRecipientSuccessMessage');
         const editRecipientModal = new bootstrap.Modal(document.getElementById('editRecipientModal'));
+        const nationalitySelect = document.getElementById('edit-nationality-select');
+        const organSelect = document.getElementById('edit-organ-select');
 
         if (updateRecipientBtn && editRecipientForm) {
             updateRecipientBtn.addEventListener('click', function (e) {
@@ -301,6 +307,42 @@
                     console.error('Fetch Error:', error);
                 });
             });
+        }
+
+        if (nationalitySelect) {
+            fetch('/countries.json')
+                .then(response => response.json())
+                .then(countries => {
+                    countries.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country;
+                        option.textContent = country;
+                        nationalitySelect.appendChild(option);
+                    });
+                    // Set selected value if present in form
+                    const currentValue = nationalitySelect.getAttribute('data-current');
+                    if (currentValue) {
+                        nationalitySelect.value = currentValue;
+                    }
+                });
+        }
+
+        if (organSelect) {
+            fetch('/organs.json')
+                .then(response => response.json())
+                .then(organs => {
+                    organs.forEach(organ => {
+                        const option = document.createElement('option');
+                        option.value = organ;
+                        option.textContent = organ;
+                        organSelect.appendChild(option);
+                    });
+                    // Set selected value if present in form
+                    const currentValue = organSelect.getAttribute('data-current');
+                    if (currentValue) {
+                        organSelect.value = currentValue;
+                    }
+                });
         }
     });
 </script> 

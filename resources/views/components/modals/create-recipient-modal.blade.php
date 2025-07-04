@@ -76,7 +76,9 @@
                             </div>
                             <div class="input-group">
                                 <label>Nationality</label>
-                                <input type="text" name="nationality" />
+                                <select name="nationality" id="create-nationality-select">
+                                    <option value="">Select Country</option>
+                                </select>
                             </div>
                             <div class="input-group">
                                 <label>Address</label>
@@ -113,7 +115,7 @@
                             </div>
                             <div class="input-group">
                                 <label>Kin Address</label>
-                                <textarea name="kin_address" rows="3" class="w-full"></textarea>
+                                <input type="text" name="kin_address" />
                             </div>
                         </div>
                     </div>
@@ -122,11 +124,17 @@
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group">
                                 <label>Medical History *</label>
-                                <textarea name="medical_history" required rows="3" class="w-full"></textarea>
+                                <input type="text" name="medical_history" />
                             </div>
                             <div class="input-group">
                                 <label>HLA Typing</label>
-                                <input type="text" name="hla_typing" />
+                                <select name="hla_typing" required>
+                                    <option value="">Select HLA Type</option>
+                                    <option value="HLA-A">HLA-A</option>
+                                    <option value="HLA-B">HLA-B</option>
+                                    <option value="HLA-DR"> HLA-DR</option>
+                                    <option value="None">None</option>
+                                </select>                            
                             </div>
                             <div class="input-group">
                                 <label>Medical Condition</label>
@@ -142,7 +150,13 @@
                             </div>
                             <div class="input-group">
                                 <label>Immunologic Sensitization</label>
-                                <input type="text" name="immunologic_sensitization" />
+                                <select name="immunologic_sensitization" required>
+                                    <option value="">Immunologic Sensitization</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Not Applicable">Not Applicable</option>                                    
+                                </select>                              
                             </div>
                             <div class="input-group">
                                 <label>Priority Score</label>
@@ -159,7 +173,9 @@
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group">
                                 <label>Organ Needed *</label>
-                                <input type="text" name="organ_needed" required />
+                                <select name="organ_needed" id="create-organ-select" required>
+                                    <option value="">Select Organ</option>
+                                </select>
                             </div>
                             <div class="input-group">
                                 <label>Match Attempts</label>
@@ -245,4 +261,35 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const nationalitySelect = document.getElementById('create-nationality-select');
+    if (nationalitySelect) {
+        fetch('/countries.json')
+            .then(response => response.json())
+            .then(countries => {
+                countries.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.textContent = country;
+                    nationalitySelect.appendChild(option);
+                });
+            });
+    }
+    const organSelect = document.getElementById('create-organ-select');
+    if (organSelect) {
+        fetch('/organs.json')
+            .then(response => response.json())
+            .then(organs => {
+                organs.forEach(organ => {
+                    const option = document.createElement('option');
+                    option.value = organ;
+                    option.textContent = organ;
+                    organSelect.appendChild(option);
+                });
+            });
+    }
+});
+</script> 
