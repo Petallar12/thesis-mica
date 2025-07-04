@@ -94,7 +94,10 @@
                 
                 <div class="tabs">
                     <button type="button" class="tab active" data-tab="personal">Personal Information</button>
+                    <button type="button" class="tab" data-tab="kin">Next of Kin</button>
                     <button type="button" class="tab" data-tab="medical">Medical Information</button>
+                    <button type="button" class="tab" data-tab="transplant">Transplant Info</button>
+                    <button type="button" class="tab" data-tab="scheduling">Scheduling</button>
                     <button type="button" class="tab" data-tab="contact">Contact Information</button>
                 </div>
 
@@ -181,7 +184,10 @@
                     success: function(data) {
                         const details = $(data);
                         const personalInfo = $('<div id="personal" class="tab-content active"></div>');
+                        const kinInfo = $('<div id="kin" class="tab-content"></div>');
                         const medicalInfo = $('<div id="medical" class="tab-content"></div>');
+                        const transplantInfo = $('<div id="transplant" class="tab-content"></div>');
+                        const schedulingInfo = $('<div id="scheduling" class="tab-content"></div>');
                         const contactInfo = $('<div id="contact" class="tab-content"></div>');
                         
                         // Sort details into appropriate tabs
@@ -191,8 +197,14 @@
                             row.find('th').addClass('detail-label');
                             row.find('td').addClass('detail-value');
                             
-                            if (category === 'medical') {
+                            if (category === 'kin') {
+                                kinInfo.append(row);
+                            } else if (category === 'medical') {
                                 medicalInfo.append(row);
+                            } else if (category === 'transplant') {
+                                transplantInfo.append(row);
+                            } else if (category === 'scheduling') {
+                                schedulingInfo.append(row);
                             } else if (category === 'contact') {
                                 contactInfo.append(row);
                             } else {
@@ -202,7 +214,10 @@
 
                         $('#recipientDetailsContent').empty()
                             .append(personalInfo)
+                            .append(kinInfo)
                             .append(medicalInfo)
+                            .append(transplantInfo)
+                            .append(schedulingInfo)
                             .append(contactInfo);
 
                         // Ensure first tab is active by default
@@ -338,11 +353,20 @@
 
             // Helper function to categorize information (for show modal)
             function categorizeInfo(label) {
-                const medicalFields = ['Medical History', 'Waiting Time', 'Organ Needed', 'Donation Preferences'];
-                const contactFields = ['Email', 'Contact', 'Encoded'];
+                const kinFields = ['Next of Kin', 'Relationship', 'Kin Contact', 'Kin Email', 'Kin Address'];
+                const medicalFields = ['Medical History', 'HLA Typing', 'Medical Condition', 'Medical Urgency Score', 'Date Listed', 'Immunologic Sensitization', 'Priority Score', 'Waiting Time'];
+                const transplantFields = ['Organ Needed', 'Match Attempts', 'Transplant Status', 'Donation Preferences'];
+                const schedulingFields = ['Scheduled Transplant Date', 'Transplantation Time', 'Operating Room', 'Transplant Surgeon', 'Surgical Team', 'Hospital Location', 'Transport Arrangement'];
+                const contactFields = ['Email Address', 'Contact Number', 'Encoded By', 'Encoded Date'];
 
-                if (medicalFields.some(field => label.includes(field))) {
+                if (kinFields.some(field => label.includes(field))) {
+                    return 'kin';
+                } else if (medicalFields.some(field => label.includes(field))) {
                     return 'medical';
+                } else if (transplantFields.some(field => label.includes(field))) {
+                    return 'transplant';
+                } else if (schedulingFields.some(field => label.includes(field))) {
+                    return 'scheduling';
                 } else if (contactFields.some(field => label.includes(field))) {
                     return 'contact';
                 } else {

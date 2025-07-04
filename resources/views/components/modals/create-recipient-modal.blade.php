@@ -7,14 +7,17 @@
 </style>
 
 <div class="modal fade" id="createRecipientModal" tabindex="-1" aria-labelledby="createRecipientModalLabel" aria-hidden="true" style="background-color: transparent !important;">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <span class="close-btn" data-bs-dismiss="modal" aria-label="Close">&times;</span>
             <h2 class="modal-title" id="createRecipientModalLabel">Add New Recipient</h2>
             
             <div class="tabs">
                 <button type="button" class="tab active" data-tab="create-personal">Personal Information</button>
+                <button type="button" class="tab" data-tab="create-kin">Next of Kin</button>
                 <button type="button" class="tab" data-tab="create-medical">Medical Information</button>
+                <button type="button" class="tab" data-tab="create-transplant">Transplant Info</button>
+                <button type="button" class="tab" data-tab="create-scheduling">Scheduling</button>
                 <button type="button" class="tab" data-tab="create-contact">Contact Information</button>
             </div>
 
@@ -68,13 +71,49 @@
                                 </select>
                             </div>
                             <div class="input-group">
+                                <label>Birthday</label>
+                                <input type="date" name="birthday" />
+                            </div>
+                            <div class="input-group">
+                                <label>Nationality</label>
+                                <input type="text" name="nationality" />
+                            </div>
+                            <div class="input-group">
+                                <label>Address</label>
+                                <input type="text" name="address" />
+                            </div>
+                            <div class="input-group">
                                 <label>Status *</label>
                                 <select name="status" required>
                                     <option value="">Select Status</option>
                                     <option value="Active">Active</option>
                                     <option value="Inactive">Inactive</option>
-
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="create-kin" class="tab-content">
+                        <div class="form-group grid grid-cols-2 gap-4">
+                            <div class="input-group">
+                                <label>Next of Kin Full Name</label>
+                                <input type="text" name="kin_fullname" />
+                            </div>
+                            <div class="input-group">
+                                <label>Relationship to Recipient</label>
+                                <input type="text" name="relationship_to_recipient" />
+                            </div>
+                            <div class="input-group">
+                                <label>Kin Contact Number</label>
+                                <input type="text" name="kin_contact_number" />
+                            </div>
+                            <div class="input-group">
+                                <label>Kin Email</label>
+                                <input type="email" name="kin_email" />
+                            </div>
+                            <div class="input-group">
+                                <label>Kin Address</label>
+                                <textarea name="kin_address" rows="3" class="w-full"></textarea>
                             </div>
                         </div>
                     </div>
@@ -86,16 +125,93 @@
                                 <textarea name="medical_history" required rows="3" class="w-full"></textarea>
                             </div>
                             <div class="input-group">
+                                <label>HLA Typing</label>
+                                <input type="text" name="hla_typing" />
+                            </div>
+                            <div class="input-group">
+                                <label>Medical Condition</label>
+                                <input type="text" name="medical_condition" />
+                            </div>
+                            <div class="input-group">
+                                <label>Medical Urgency Score</label>
+                                <input type="number" name="medical_urgency_score" min="0" max="10" />
+                            </div>
+                            <div class="input-group">
+                                <label>Date Listed</label>
+                                <input type="date" name="date_listed" />
+                            </div>
+                            <div class="input-group">
+                                <label>Immunologic Sensitization</label>
+                                <input type="text" name="immunologic_sensitization" />
+                            </div>
+                            <div class="input-group">
+                                <label>Priority Score</label>
+                                <input type="number" name="priority_score" min="0" max="100" />
+                            </div>
+                            <div class="input-group">
                                 <label>Waiting Time (months) *</label>
                                 <input type="number" name="waiting_time" required />
                             </div>
+                        </div>
+                    </div>
+
+                    <div id="create-transplant" class="tab-content">
+                        <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group">
                                 <label>Organ Needed *</label>
                                 <input type="text" name="organ_needed" required />
                             </div>
                             <div class="input-group">
+                                <label>Match Attempts</label>
+                                <input type="number" name="match_attempts" min="0" />
+                            </div>
+                            <div class="input-group">
+                                <label>Transplant Status</label>
+                                <select name="transplant_status">
+                                    <option value="">Select Status</option>
+                                    <option value="Waiting">Waiting</option>
+                                    <option value="Matched">Matched</option>
+                                    <option value="Scheduled">Scheduled</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
                                 <label>Donation Preferences</label>
                                 <input type="text" name="donation_preferences" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="create-scheduling" class="tab-content">
+                        <div class="form-group grid grid-cols-2 gap-4">
+                            <div class="input-group">
+                                <label>Scheduled Transplant Date</label>
+                                <input type="date" name="scheduled_transplant_date" />
+                            </div>
+                            <div class="input-group">
+                                <label>Transplantation Time</label>
+                                <input type="time" name="transplantation_time" />
+                            </div>
+                            <div class="input-group">
+                                <label>Operating Room Availability</label>
+                                <input type="text" name="operating_room_availaility" />
+                            </div>
+                            <div class="input-group">
+                                <label>Transplant Surgeon</label>
+                                <input type="text" name="transplant_surgeon" />
+                            </div>
+                            <div class="input-group">
+                                <label>Surgical Team Availability</label>
+                                <input type="text" name="surgical_team_availability" />
+                            </div>
+                            <div class="input-group">
+                                <label>Hospital Location</label>
+                                <input type="text" name="hospital_location" />
+                            </div>
+                            <div class="input-group">
+                                <label>Transport Arrangement</label>
+                                <input type="text" name="transport_arrangement" />
                             </div>
                         </div>
                     </div>
