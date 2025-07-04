@@ -31,35 +31,17 @@ class DonorController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:100',
-            // 'middle_name' => 'required|string|max:100',
-            'last_name' => 'required|string|max:100',
-            // 'goverment_id_number' => 'required|string|max:100|unique:donors,goverment_id_number',
-            'goverment_id_number' => 'required|string|max:100',
-            'contact_information' => 'required|string|max:100',
-            'blood_type' => 'required|string|max:100',
-            // 'age' => 'required|integer|min:0',
-            'organ_needed' => 'required|string|max:100',
-            // 'medical_history' => 'required|string|max:255',
-            // 'waiting_time' => 'required|string|max:255',
-            // 'donation_preferences' => 'required|string|max:255',
-            // 'gender' => 'required|string|max:20',
-        ]);
-
-        $donor = Donor::create($validated);
-
+        $data = $request->all();
+        $donor = Donor::create($data);
         // Send email if contact_information is an email
-        if (filter_var($validated['contact_information'], FILTER_VALIDATE_EMAIL)) {
+        if (isset($data['contact_information']) && filter_var($data['contact_information'], FILTER_VALIDATE_EMAIL)) {
             try {
-                Mail::to($validated['contact_information'])
+                Mail::to($data['contact_information'])
                     ->send(new DonorRegistrationConfirmation($donor));
             } catch (\Exception $e) {
-                // Log the error but don't stop the registration process
                 \Log::error('Failed to send email: ' . $e->getMessage());
             }
         }
-
         return response()->json([
             'success' => true,
             'message' => 'Thank you for registering as a donor!'
@@ -94,30 +76,14 @@ class DonorController extends Controller
      */
     public function update(Request $request, Donor $donor)
     {
-        $validated = $request->validate([
-            // 'first_name' => 'required|string|max:100',
-            // 'middle_name' => 'required|string|max:100',
-            // 'last_name' => 'required|string|max:100',
-            // 'goverment_id_number' => 'required|string|max:100|unique:donors,goverment_id_number',
-            // 'contact_information' => 'required|string|max:100',
-            // 'blood_type' => 'required|string|max:100',
-            // 'age' => 'required|integer|min:0',
-            // 'organ_needed' => 'required|string|max:100',
-            // 'medical_history' => 'required|string|max:255',
-            // 'waiting_time' => 'required|string|max:255',
-            // 'donation_preferences' => 'required|string|max:255',
-            // 'gender' => 'required|string|max:20',
-        ]);
-
-        $donor->update($validated);
-
+        $data = $request->all();
+        $donor->update($data);
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
                 'message' => 'Donor updated successfully!'
             ]);
         }
-
         return redirect()->route('donors.index')->with('success', 'Donor updated successfully.');
     }
 

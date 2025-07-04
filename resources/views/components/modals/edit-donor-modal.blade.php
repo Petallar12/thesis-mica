@@ -19,7 +19,7 @@
                 <button type="button" class="tab" data-tab="edit-organ-specific-information">Organ-Specific Information</button>
                 <button type="button" class="tab" data-tab="edit-system-information">System Information</button>
                 <button type="button" class="tab" data-tab="edit-others">Others</button>
-                <button type="button" class="tab" data-tab="edit-contact">Contact Information</button>
+                {{-- <button type="button" class="tab" data-tab="edit-contact">Contact Information</button> --}}
             </div>
 
             <div class="modal-body">
@@ -62,7 +62,7 @@
                             <div class="input-group"><label>Weight</label><input type="number" name="weight" step="0.01" /></div>
                             <div class="input-group"><label>Cause of Death</label><input type="text" name="cause_of_death" /></div>
                             <div class="input-group"><label>Brain Death Confirmation</label><input type="text" name="brain_death_confirmation" /></div>
-                            <div class="input-group"><label>Medical History</label><textarea name="medical_history"></textarea></div>
+                            <div class="input-group"><label>Medical History</label><input type="text" name="medical_history" /></div>
                             <div class="input-group"><label>Communicable Diseases</label><input type="text" name="communicable_diseases" /></div>
                             <div class="input-group"><label>Organ Viability Status</label><input type="text" name="organ_viability_status" /></div>
                             <div class="input-group"><label>Donor Status</label><input type="text" name="donor_status" /></div>
@@ -107,12 +107,12 @@
                         </div>
                     </div>
 
-                    <div id="edit-contact" class="tab-content">
+                    {{-- <div id="edit-contact" class="tab-content">
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group"><label>Email Address</label><input type="email" name="contact_information" /></div>
                             <div class="input-group"><label>Contact Number</label><input type="text" name="contact_number" /></div>
                         </div>
-                    </div>
+                    </div> --}}
                 </form>
             </div>
             

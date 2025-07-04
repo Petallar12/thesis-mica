@@ -232,7 +232,7 @@
                             const input = form.find(`[name="${key}"]`);
                             if (input.length) {
                                 if (input.is('select')) {
-                                    input.find(`option[value="${donor[key]}"]`).prop('selected', true);
+                                    input.val(donor[key]);
                                 } else {
                                     input.val(donor[key]);
                                 }
