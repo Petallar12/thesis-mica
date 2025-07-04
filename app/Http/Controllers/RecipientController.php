@@ -18,21 +18,6 @@ class RecipientController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'first_name' => 'required',
-                'last_name' => 'required',
-                // 'gender' => 'required',
-                'goverment_id_number' => 'required|unique:recipients',
-                'blood_type' => 'required',
-                // 'age' => 'required|numeric',
-                'organ_needed' => 'required',
-                // 'medical_history' => 'required',
-                // 'waiting_time' => 'required|numeric',
-                'contact_information' => 'required|email',
-                // 'contact_number' => 'required',
-                'status' => 'required'
-            ]);
-
             $recipient = new Recipients($request->all());
             $recipient->encoded_by = auth()->user()->name;
             $recipient->encoded_date = now();
@@ -77,26 +62,8 @@ class RecipientController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            // $request->validate([
-            //     'first_name' => 'required',
-            //     'last_name' => 'required',
-            //     'gender' => 'required',
-            //     // 'goverment_id_number' => 'required|unique:recipients,goverment_id_number,'.$id,
-            //     'blood_type' => 'required',
-            //     // 'age' => 'required|numeric',
-            //     'organ_needed' => 'required',
-            //     // 'medical_history' => 'required',
-            //     // 'waiting_time' => 'required|numeric',
-            //     'contact_information' => 'required|email',
-            //     // 'contact_number' => 'required',
-            //     'status' => 'required',
-            //     'encoded_by' => 'nullable',
-            //     'encoded_date' => 'nullable'
-            // ]);
-
             $recipient = Recipients::findOrFail($id);
             $recipient->update($request->all());
-
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 422);
