@@ -124,6 +124,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     {{-- DataTables JS --}}
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function () {
@@ -343,27 +345,46 @@
             $(document).on('click', '.delete-recipient-btn', function(e) {
                 e.preventDefault();
                 const recipientId = $(this).data('id');
-                const form = $(this).closest('form');
-                
-                if (confirm('Are you sure you want to delete this recipient?')) {
-                    $.ajax({
-                        url: `/recipients/${recipientId}`,
-                        type: 'POST', // Send as POST for DELETE method
-                        data: { _method: 'DELETE', _token: $('meta[name="csrf-token"]').attr('content') },
-                        success: function(response) {
-                            if (response.success) {
-                                location.reload();
-                            } else {
-                                console.error('Error deleting recipient:', response.message);
-                                alert('Failed to delete recipient: ' + (response.message || 'An unknown error occurred.'));
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/recipients/${recipientId}`,
+                            type: 'POST',
+                            data: { _method: 'DELETE', _token: $('meta[name="csrf-token"]').attr('content') },
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Recipient has been deleted.',
+                                        'success'
+                                    ).then(() => location.reload());
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        response.message || 'Failed to delete recipient.',
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire(
+                                    'Error!',
+                                    'An error occurred during deletion. Please try again.',
+                                    'error'
+                                );
                             }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('AJAX Error deleting recipient:', xhr.responseText);
-                            alert('An error occurred during deletion. Please try again.');
-                        }
-                    });
-                }
+                        });
+                    }
+                });
             });
 
             // Helper function to categorize information (for show modal)
