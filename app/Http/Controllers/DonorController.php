@@ -36,6 +36,7 @@ class DonorController extends Controller
             // 'middle_name' => 'required|string|max:100',
             'last_name' => 'required|string|max:100',
             // 'goverment_id_number' => 'required|string|max:100|unique:donors,goverment_id_number',
+            'goverment_id_number' => 'required|string|max:100',
             'contact_information' => 'required|string|max:100',
             'blood_type' => 'required|string|max:100',
             // 'age' => 'required|integer|min:0',
@@ -94,14 +95,14 @@ class DonorController extends Controller
     public function update(Request $request, Donor $donor)
     {
         $validated = $request->validate([
-            'first_name' => 'required|string|max:100',
+            // 'first_name' => 'required|string|max:100',
             // 'middle_name' => 'required|string|max:100',
-            'last_name' => 'required|string|max:100',
+            // 'last_name' => 'required|string|max:100',
             // 'goverment_id_number' => 'required|string|max:100|unique:donors,goverment_id_number',
-            'contact_information' => 'required|string|max:100',
-            'blood_type' => 'required|string|max:100',
+            // 'contact_information' => 'required|string|max:100',
+            // 'blood_type' => 'required|string|max:100',
             // 'age' => 'required|integer|min:0',
-            'organ_needed' => 'required|string|max:100',
+            // 'organ_needed' => 'required|string|max:100',
             // 'medical_history' => 'required|string|max:255',
             // 'waiting_time' => 'required|string|max:255',
             // 'donation_preferences' => 'required|string|max:255',

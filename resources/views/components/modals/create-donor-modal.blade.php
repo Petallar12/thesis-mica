@@ -35,7 +35,12 @@
                             <div class="input-group"><label>Gender <span class="required">*</span></label><select name="gender" required><option value="">Select Gender</option><option value="Male">Male</option><option value="Female">Female</option></select></div>
                             <div class="input-group"><label>Birthday</label><input type="date" name="birthday" /></div>
                             {{-- <div class="input-group"><label>Age <span class="required">*</span></label><input type="number" name="age" min="0" required /></div> --}}
-                            <div class="input-group"><label>Nationality</label><input type="text" name="nationality" /></div>
+                            <div class="input-group">
+                                <label>Nationality</label>
+                                <select name="nationality" id="create-donor-nationality-select">
+                                    <option value="">Select Country</option>
+                                </select>
+                            </div>
                             <div class="input-group"><label>Contact Number</label><input type="text" name="contact_number" /></div>
                             <div class="input-group"><label>Email Address <span class="required">*</span></label><input type="email" name="contact_information" /></div>
                             <div class="input-group"><label>Government ID Number</label><input type="text" name="goverment_id_number" /></div>
@@ -46,11 +51,28 @@
                     <div id="create-kin-information" class="tab-content">
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group"><label>Kin Full Name</label><input type="text" name="kin_fullname" /></div>
-                            <div class="input-group"><label>Relationship to Donor</label><input type="text" name="relationship_to_donor" /></div>
+                            <div class="input-group"><label>Relationship to Donor</label>
+                                <select name="relationship_to_donor" required>
+                                    <option value="">Select Relationship</option>
+                                    <option value="Parent">Parent</option>
+                                    <option value="Sibling">Sibling</option>
+                                    <option value="Child">Child</option>
+                                    <option value="Friend">Friend</option>
+
+                                </select>
+                            </div>
                             <div class="input-group"><label>Kin Contact Number</label><input type="text" name="kin_contact_number" /></div>
                             <div class="input-group"><label>Kin Email</label><input type="email" name="kin_email" /></div>
                             <div class="input-group"><label>Kin Address</label><input type="text" name="kin_address" /></div>
-                            <div class="input-group"><label>Kin Consent</label><input type="text" name="kin_consent" /></div>
+
+                            <div class="input-group"><label>Kin Consent</label> 
+                            <select name="kin_consent" required>
+                                <option value="">Select Consent</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                        </div>
                         </div>
                     </div>
 
@@ -62,17 +84,67 @@
                             <div class="input-group"><label>Cause of Death</label><input type="text" name="cause_of_death" /></div>
                             <div class="input-group"><label>Brain Death Confirmation</label><input type="text" name="brain_death_confirmation" /></div>
                             <div class="input-group"><label>Medical History</label><input type="text" name="medical_history" /></div>
-                            <div class="input-group"><label>Communicable Diseases</label><input type="text" name="communicable_diseases" /></div>
-                            <div class="input-group"><label>Organ Viability Status</label><input type="text" name="organ_viability_status" /></div>
-                            <div class="input-group"><label>Donor Status</label><input type="text" name="donor_status" /></div>
-                            <div class="input-group"><label>Status</label><input type="text" name="status" /></div>
-                            <div class="input-group"><label>Consent Type</label><input type="text" name="consent_type" /></div>
+                            <div class="input-group"><label>Communicable Diseases</label>
+                                <select name="communicable_diseases" required>
+                                    <option value="">Select Communicable Diseases</option>
+                                    <option value="HIV">HIV</option>
+                                    <option value="TB">TB</option>
+                                    <option value="Hepatitis B">Hepatitis B</option>
+                                    <option value="Hepatitis C">Hepatitis C</option>
+                                    <option value="None">None</option>
+                                    <option value="Others">Others</option>
+
+                                </select></div>
+                            <div class="input-group"><label>Organ Viability Status</label>
+                                <select name="organ_viability_status" required>
+                                    <option value="">Select Organ Viability Status</option>
+                                    <option value="Viable">Viable</option>
+                                    <option value="Not Viable">Not Viable</option>
+                                    <option value="Pending Evaluation">Pending Evaluation</option>
+                                </select>
+                            </div>
+                            <div class="input-group"><label>Donor Status</label>
+                                <select name="donor_status" required>
+                                    <option value="">Select Donor Status</option>
+                                    <option value="Deceased">Deceased</option>
+                                    <option value="Not Applicable">Not Applicable</option>
+                                    <option value="Pending Evaluation">Pending Evaluation</option>
+                                </select>
+                            </div>
+                            <div class="input-group"><label>Status <span class="required">*</label>
+                                    <select name="status" required>
+                                        <option value="">Select Status</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
+                            </div>
+                            <div class="input-group"><label>Consent Type</label>
+                                <select name="donor_status" required>
+                                    <option value="">Select Consent Type</option>
+                                    <option value="Donor Card">Donor Card</option>
+                                    <option value="Family Consent">Family Consent</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="input-group"><label>Donation Type</label>
+                                <select name="donation_type" required>
+                                    <option value="">Select Status</option>
+                                    <option value="Transplantation">Transplantation</option>
+                                    <option value="Research and Education">Research and Education</option>
+                                    <option value="Both">Both</option>
+                                </select></div>
+                            </div>
                         </div>
                     </div>
 
                     <div id="create-organ-specific-information" class="tab-content">
                         <div class="form-group grid grid-cols-2 gap-4">
-                            <div class="input-group"><label>Organ Needed <span class="required">*</span></label><input type="text" name="organ_needed" required /></div>
+                            <div class="input-group">
+                                <label>Organ Needed *</label>
+                                <select name="organ_needed" id="create-donor-organ-select" required>
+                                    <option value="">Select Organ</option>
+                                </select>
+                            </div>
                             <div class="input-group"><label>Organ Size</label><input type="text" name="organ_size" /></div>
                             <div class="input-group"><label>Organ Function</label><input type="text" name="ogran_function" /></div>
                             <div class="input-group"><label>Retrieval Time</label><input type="time" name="retrieval_time" /></div>
@@ -94,7 +166,7 @@
 
                     <div id="create-others" class="tab-content">
                         <div class="form-group grid grid-cols-2 gap-4">
-                            <div class="input-group"><label>Donation Type</label><input type="text" name="donation_type" /></div>
+                            
                             <div class="input-group"><label>Donation Purpose</label><input type="text" name="donation_purpose" /></div>
                             <div class="input-group"><label>Condition for Donation</label><input type="text" name="condition_for_donation" /></div>
                             <div class="input-group"><label>Signature</label><input type="text" name="signature" /></div>
@@ -121,4 +193,35 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const nationalitySelect = document.getElementById('create-donor-nationality-select');
+    if (nationalitySelect) {
+        fetch('/countries.json')
+            .then(response => response.json())
+            .then(countries => {
+                countries.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.textContent = country;
+                    nationalitySelect.appendChild(option);
+                });
+            });
+    }
+    const organSelect = document.getElementById('create-donor-organ-select');
+    if (organSelect) {
+        fetch('/organs.json')
+            .then(response => response.json())
+            .then(organs => {
+                organs.forEach(organ => {
+                    const option = document.createElement('option');
+                    option.value = organ;
+                    option.textContent = organ;
+                    organSelect.appendChild(option);
+                });
+            });
+    }
+});
+</script> 

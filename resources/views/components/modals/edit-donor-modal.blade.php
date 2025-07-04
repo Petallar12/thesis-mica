@@ -35,7 +35,7 @@
                             <div class="input-group"><label>Last Name <span class="required">*</span></label><input type="text" name="last_name" required /></div>
                             <div class="input-group"><label>Gender <span class="required">*</span></label><select name="gender" required><option value="">Select Gender</option><option value="Male">Male</option><option value="Female">Female</option></select></div>
                             <div class="input-group"><label>Birthday</label><input type="date" name="birthday" /></div>
-                            <div class="input-group"><label>Age <span class="required">*</span></label><input type="number" name="age" min="0" required /></div>
+                            {{-- <div class="input-group"><label>Age <span class="required">*</span></label><input type="number" name="age" min="0" required /></div> --}}
                             <div class="input-group"><label>Nationality</label><input type="text" name="nationality" /></div>
                             <div class="input-group"><label>Contact Number</label><input type="text" name="contact_number" /></div>
                             <div class="input-group"><label>Email Address</label><input type="email" name="contact_information" /></div>
