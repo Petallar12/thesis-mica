@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="{{ asset('css/guest-modal.css') }}">
 
 <div id="donorModal" class="modal">
@@ -13,8 +12,10 @@
 
           <div class="tabs">
               <button type="button" class="tab active" data-tab="personal">Personal Information</button>
+              <button type="button" class="tab" data-tab="create-kin-information">Kin Information</button>
+              <button type="button" class="tab" data-tab="organ-donation-preference">Organ Donation Preferences</button>
               <button type="button" class="tab" data-tab="medical">Medical Information</button>
-              <button type="button" class="tab" data-tab="contact">Contact Information</button>
+              <button type="button" class="tab" data-tab="donor">Donor Card Information</button>
           </div>
 
           <div id="personal" class="tab-content active">
@@ -32,76 +33,136 @@
                       <input type="text" name="last_name" required />
                   </div>
                   <div class="input-group">
+                    <label>Gender *</label>
+                    <select name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="input-group"><label>Birthday</label><input type="date" name="birthday" /></div>
+                <div class="input-group">
+                    <label>Nationality</label>
+                    <select name="nationality" id="create-donor-nationality-select">
+                        <option value="">Select Country</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Email Address *</label>
+                    <input type="email" name="contact_information" required />
+                </div>
+                <div class="input-group">
+                    <label>Contact Number *</label>
+                    <input type="text" name="contact_number" required />
+                </div>
+                  <div class="input-group">
                       <label>Government ID *</label>
                       <input type="text" name="goverment_id_number" required />
                   </div>
-                  <div class="input-group">
-                      <label>Blood Type *</label>
-                      <select name="blood_type" required>
-                          <option value="">Select Blood Type</option>
-                          <option value="O+">O+</option>
-                          <option value="O-">O-</option>
-                          <option value="A+">A+</option>
-                          <option value="A-">A-</option>
-                          <option value="B+">B+</option>
-                          <option value="B-">B-</option>
-                          <option value="AB+">AB+</option>
-                          <option value="AB-">AB-</option>
+                  <div class="input-group"><label>Address</label><input type="text" name="address" /></div>
+              </div>
+          </div>
+
+          <div id="create-kin-information" class="tab-content">
+              <div class="form-group grid grid-cols-2 gap-4">
+                  <div class="input-group"><label>Kin Full Name</label><input type="text" name="kin_fullname" /></div>
+                  <div class="input-group"><label>Relationship to Donor</label>
+                      <select name="relationship_to_donor" required>
+                          <option value="">Select Relationship</option>
+                          <option value="Parent">Parent</option>
+                          <option value="Sibling">Sibling</option>
+                          <option value="Child">Child</option>
+                          <option value="Friend">Friend</option>
                       </select>
                   </div>
-                  <div class="input-group">
-                      <label>Registration Date *</label>
-                      <input type="date" name="encoded_date" value="{{ date('Y-m-d') }}" required readonly />
-                  </div>
-                  <div class="input-group">
-                      <label>Donor Status *</label>
-                      <select name="status" required>
-                          <option value="">Select Status</option>
-                          <option value="Active">Active</option>
-                      </select>
-                  </div>
-                  <div class="input-group">
-                      <label>Age *</label>
-                      <input type="number" name="age" required min="0" />
-                  </div>
-                  <div class="input-group">
-                      <label>Gender *</label>
-                      <select name="gender" required>
-                          <option value="">Select Gender</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
+                  <div class="input-group"><label>Kin Contact Number</label><input type="text" name="kin_contact_number" /></div>
+                  <div class="input-group"><label>Kin Email</label><input type="email" name="kin_email" /></div>
+                  <div class="input-group"><label>Kin Address</label><input type="text" name="kin_address" /></div>
+                  <div class="input-group"><label>Kin Consent</label> 
+                      <select name="kin_consent" required>
+                          <option value="">Select Consent</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                          <option value="Pending">Pending</option>
                       </select>
                   </div>
               </div>
           </div>
+          <div id="organ-donation-preference" class="tab-content">
+            <div class="form-group grid grid-cols-2 gap-4">
+                <div class="input-group">
+                    <label>Prefer Organ Donation *</label>
+                    <select name="organ_needed" id="create-donor-organ-select" required>
+                        <option value="">Select Organ</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Donation Type</label>
+                    <select name="donation_type" required>
+                        <option value="">Select Status</option>
+                        <option value="Transplantation">Transplantation</option>
+                        <option value="Research and Education">Research and Education</option>
+                        <option value="Both">Both</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Donation Purpose</label>
+                    <input type="text" name="donation_purpose" />
+                </div>
+                <div class="input-group"><label>Condition for Donation</label><input type="text" name="condition_for_donation" /></div>
 
+            </div>
+          </div>
+        
           <div id="medical" class="tab-content">
               <div class="form-group">
-                  <div class="input-group">
+                  {{-- <div class="input-group">
                       <label>Medical History *</label>
                       <input type="text" name="medical_history" required />
-                  </div>
+                  </div> --}}
                   <div class="input-group">
-                      <label>Waiting Time *</label>
-                      <input type="text" name="waiting_time" required />
-                  </div>
-                  <div class="input-group">
+                    <label>Blood Type <span class="required">*</span></label>
+                    <select name="blood_type" required>
+                        <option value="">Select Blood Type</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                </div>
+                <div class="input-group"><label>Height</label><input type="number" name="height" step="0.01" /></div>
+                <div class="input-group"><label>Weight</label><input type="number" name="weight" step="0.01" /></div>
+                <div class="input-group"><label>Medical History</label><input type="text" name="medical_history" /></div>
+
+                {{-- <div class="input-group">
                       <label>Donation Preferences *</label>
                       <input type="text" name="donation_preferences" required />
                   </div>
                   <div class="input-group">
                       <label>Donate Organ *</label>
                       <input type="text" name="organ_needed" required />
-                  </div>
+                  </div> --}}
               </div>
           </div>
 
-          <div id="contact" class="tab-content">
+          <div id="donor" class="tab-content">
               <div class="form-group">
-                  <div class="input-group">
-                      <label>Email Address *</label>
-                      <input type="email" name="contact_information" required />
-                  </div>
+                <div class="input-group"><label>Donor Card Registration Date</label><input type="date" name="donor_card_registration_date" /></div>
+
+                <div class="input-group">
+                    <label>Registration Method<span class="required">*</span></label>
+                    <select name="blood_type" required>
+                        <option value="">Select Registration Method</option>
+                        <option value="Web">Web</option>
+                        <option value="App">App</option>
+                        <option value="NKTI Office">NKTI Office</option>
+                        <option value="LTO">LTO</option>
+                    </select>
+                </div>
                   <div class="input-group">
                       <label>Contact Number *</label>
                       <input type="text" name="contact_number" required />
