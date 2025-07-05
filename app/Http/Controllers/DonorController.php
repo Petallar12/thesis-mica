@@ -31,6 +31,14 @@ class DonorController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'goverment_id_number' => 'required',
+            'organ_needed' => 'required',
+            'blood_type' => 'required',
+            // add other required fields as needed
+        ]);
         $data = $request->all();
         $donor = Donor::create($data);
         // Send email if contact_information is an email

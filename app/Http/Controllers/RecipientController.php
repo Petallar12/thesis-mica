@@ -17,6 +17,14 @@ class RecipientController extends Controller
 
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'goverment_id_number' => 'required',
+            'organ_needed' => 'required',
+            'blood_type' => 'required',
+            // add other required fields as needed
+        ]);
         try {
             $recipient = new Recipients($request->all());
             $recipient->encoded_by = auth()->user()->name;
