@@ -25,4 +25,10 @@ class DashboardController extends Controller
         return view('dashboard', compact('totalRegistration', 'totalRecipients', 'totalDonors', 'totalUsers',
         'totalInactiveDonors', 'totalInactiveRecipients' ,'totalActiveDonors', 'totalActiveRecipients'));
     }
+
+    public function schedules()
+    {
+        $recipients = \App\Models\Recipients::select('first_name', 'last_name', 'scheduled_transplant_date', 'transplantation_time')->get();
+        return view('dashboard.schedules', compact('recipients'));
+    }
 } 

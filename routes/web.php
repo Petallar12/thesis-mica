@@ -46,4 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/organ-status/details', [OrganStatusController::class, 'organDetails'])->name('organ-status.details');
 });
 
+Route::get('/schedules', [DashboardController::class, 'schedules'])->name('schedules');
+
 require __DIR__.'/auth.php';
