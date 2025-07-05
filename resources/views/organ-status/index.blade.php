@@ -20,8 +20,8 @@
                         </thead>
                         <tbody>
                             @foreach($availableOrgans as $organ)
-                            <tr class="border-b">
-                                <td class="px-4 py-2 text-center">{{ $organ->organ_needed }}</td>
+                            <tr class="border-b organ-row" data-organ-type="{{ $organ->organ_needed }}">
+                                <td class="px-4 py-2 text-center text-black font-bold cursor-pointer">{{ $organ->organ_needed }}</td>
                                 <td class="px-4 py-2 text-center">{{ $organ->total_count }}</td>
                             </tr>
                             @endforeach
@@ -39,6 +39,29 @@
     {{-- DataTables JS --}}
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 
+    <!-- Organ Details Modal -->
+    <div class="modal fade" id="organDetailsModal" tabindex="-1" aria-labelledby="organDetailsModalLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="organDetailsModalLabel">Organ Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="organDetailsContent">
+                        <p class="text-center">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal-backdrop {
+            background: transparent !important;
+        }
+    </style>
+
     <script>
         $(document).ready(function() {
             $('#organsTable').DataTable({
@@ -52,6 +75,38 @@
                     search: "_INPUT_",
                     searchPlaceholder: "Search organs..."
                 }
+            });
+
+            // Organ row click handler
+            $(document).on('click', '.organ-row', function() {
+                var organType = $(this).data('organ-type');
+                $('#organDetailsModalLabel').text('Organ Details: ' + organType);
+                $('#organDetailsContent').html('<p class="text-center">Loading...</p>');
+                var modal = new bootstrap.Modal(document.getElementById('organDetailsModal'));
+                modal.show();
+                $.ajax({
+                    url: '{{ route('organ-status.details') }}',
+                    type: 'POST',
+                    data: {
+                        organ_type: organType,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(data) {
+                        if (data.length === 0) {
+                            $('#organDetailsContent').html('<p class="text-center">No details found for this organ type.</p>');
+                            return;
+                        }
+                        var html = '<table class="table table-bordered"><thead><tr><th>Organ Size</th><th>Blood Type</th></tr></thead><tbody>';
+                        data.forEach(function(row) {
+                            html += '<tr><td>' + (row.organ_size || 'N/A') + '</td><td>' + (row.blood_type || 'N/A') + '</td></tr>';
+                        });
+                        html += '</tbody></table>';
+                        $('#organDetailsContent').html(html);
+                    },
+                    error: function() {
+                        $('#organDetailsContent').html('<p class="text-danger text-center">Failed to load organ details.</p>');
+                    }
+                });
             });
         });
     </script>

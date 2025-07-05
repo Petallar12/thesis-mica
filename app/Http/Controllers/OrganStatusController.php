@@ -18,4 +18,14 @@ class OrganStatusController extends Controller
 
         return view('organ-status.index', compact('availableOrgans'));
     }
+
+    public function organDetails(Request $request)
+    {
+        $organType = $request->input('organ_type');
+        $organs = Donor::where('status', 'Active')
+            ->where('organ_needed', $organType)
+            ->select('organ_size', 'blood_type')
+            ->get();
+        return response()->json($organs);
+    }
 } 

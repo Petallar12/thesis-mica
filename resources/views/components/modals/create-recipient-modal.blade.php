@@ -99,7 +99,7 @@
                     <div id="create-kin" class="tab-content">
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group">
-                                <label>Next of Kin Full Name</label>
+                                <label>Kin Full Name</label>
                                 <input type="text" name="kin_fullname" />
                             </div>
                             <div class="input-group">

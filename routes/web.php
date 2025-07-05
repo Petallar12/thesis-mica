@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('donors', DonorController::class);
     Route::resource('recipients', RecipientController::class);
     Route::get('/organ-status', [OrganStatusController::class, 'index'])->name('organ-status.index');
+    Route::post('/organ-status/details', [OrganStatusController::class, 'organDetails'])->name('organ-status.details');
 });
 
 require __DIR__.'/auth.php';

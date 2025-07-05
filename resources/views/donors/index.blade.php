@@ -21,7 +21,8 @@
                         <th>ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <th>Age</th>
+                        <th>Email Address</th>
+                        <th>Kin Full Name</th>
                         <th>
                             <select class="blood-type-filter" id="blood-type-filter">
                                 <option value="">Blood type</option>
@@ -54,7 +55,9 @@
                         <td>{{ $donor->id }}</td>
                         <td>{{ $donor->first_name }}</td>
                         <td>{{ $donor->last_name }}</td>
-                        <td>{{ $donor->age }}</td>
+                        <td>{{ $donor->contact_information }}</td>
+                        <td>{{ $donor->kin_fullname }}</td>
+
                         <td>{{ $donor->blood_type }}</td>
                         <td>{{ $donor->gender }}</td>
                         <td>{{ $donor->organ_needed }}</td>
