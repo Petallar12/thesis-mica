@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RecipientController;
+use App\Http\Controllers\MatchingController;
 // use App\Http\Controllers\AccountUserController;
 use App\Http\Controllers\NewUserRegistrationController;
 use App\Http\Controllers\OrganStatusController;
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('recipients', RecipientController::class);
     Route::get('/organ-status', [OrganStatusController::class, 'index'])->name('organ-status.index');
     Route::post('/organ-status/details', [OrganStatusController::class, 'organDetails'])->name('organ-status.details');
+    Route::get('/matching', [MatchingController::class, 'index'])->name('matching.index');
 });
 
 Route::get('/schedules', [DashboardController::class, 'schedules'])->name('schedules');

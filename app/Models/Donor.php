@@ -42,6 +42,7 @@ class Donor extends Model
         'communicable_diseases',
         'organ_viability_status',
         'donor_status',
+        'transplant_status',
         'status', 
         'consent_type',
     //Organ-Specific Information:(tab)

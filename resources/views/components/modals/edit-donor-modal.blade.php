@@ -142,6 +142,17 @@
                             <div class="input-group"><label>Condition of Organs</label><input type="text" name="condition_of_organs" /></div>
                             <div class="input-group"><label>Organ Compatibility</label><input type="text" name="organ_compability" /></div>
                             <div class="input-group"><label>Organ Recovery Team</label><input type="text" name="organ_recovery_team" /></div>
+                            <div class="input-group">
+                                <label>Transplant Status</label>
+                                <select name="transplant_status">
+                                    <option value="">Select Status</option>
+                                    <option value="Waiting">Waiting</option>
+                                    <option value="Matched">Matched</option>
+                                    <option value="Scheduled">Scheduled</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
