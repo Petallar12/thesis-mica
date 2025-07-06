@@ -69,5 +69,6 @@ class Donor extends Model
         'donation_preferences',
         'encoded_by',
         'encoded_date',
+        'register_outside_inside',
     ];
 }

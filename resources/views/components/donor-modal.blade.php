@@ -9,6 +9,7 @@
 
       <form id="donorForm" method="POST" action="{{ route('donor.store') }}">
           @csrf
+          <input type="hidden" name="registration_inside_outside" value="Outside" />
 
           <div class="tabs">
               <button type="button" class="tab active" data-tab="personal">Personal Information</button>
