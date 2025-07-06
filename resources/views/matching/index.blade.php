@@ -156,32 +156,7 @@
         @endif
 
         <!-- Statistics Section -->
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h3 class="text-primary">{{ $donors->count() }}</h3>
-                        <p class="text-muted mb-0">Total Donors</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h3 class="text-success">{{ $recipients->count() }}</h3>
-                        <p class="text-muted mb-0">Total Recipients</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h3 class="text-info">{{ count($matches) }}</h3>
-                        <p class="text-muted mb-0">Potential Matches</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     <!-- Font Awesome for icons -->
