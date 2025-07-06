@@ -124,14 +124,18 @@
                     <label>Blood Type <span class="required">*</span></label>
                     <select name="blood_type" required>
                         <option value="">Select Blood Type</option>
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
+                        <option value="O">O</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                    <option value="A">A</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B">B</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB">AB</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
                     </select>
                 </div>
                 <div class="input-group"><label>Height</label><input type="number" name="height" step="0.01" /></div>

@@ -43,12 +43,16 @@
                                 <label>Blood Type <span class="required">*</span></label>
                                 <select name="blood_type" required>
                                     <option value="">Select Blood Type</option>
+                                    <option value="O">O</option>
                                     <option value="O+">O+</option>
                                     <option value="O-">O-</option>
+                                    <option value="A">A</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
+                                    <option value="B">B</option>
                                     <option value="B+">B+</option>
                                     <option value="B-">B-</option>
+                                    <option value="AB">AB</option>
                                     <option value="AB+">AB+</option>
                                     <option value="AB-">AB-</option>
                                 </select>
@@ -68,6 +72,10 @@
                             <div class="input-group">
                                 <label>Birthday</label>
                                 <input type="date" name="birthday" />
+                            </div>
+                            <div class="input-group">
+                                <label>Age <span class="required">*</span></label>
+                                <input type="text" name="age" required />
                             </div>
                             <div class="input-group">
                                 <label>Nationality</label>
@@ -135,9 +143,16 @@
                                 <label>Medical Condition</label>
                                 <input type="text" name="medical_condition" />
                             </div>
+                            
                             <div class="input-group">
-                                <label>Medical Urgency Score</label>
-                                <input type="number" name="medical_urgency_score" min="0" max="10" />
+                                <label>Medical Urgency Level</label>
+                                <select name="medical_urgency_score">
+                                    <option value="">Select Urgency Level</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                    <option value="Critical">Critical</option>
+                                </select>
                             </div>
                             <div class="input-group">
                                 <label>Date Listed</label>

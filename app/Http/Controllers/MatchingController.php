@@ -72,7 +72,7 @@ class MatchingController extends Controller
         ];
         
         // Check if donor is available (status check)
-        if ($donor->donor_status !== 'Available' && $donor->donor_status !== 'Ready') {
+        if ($donor->donor_status !== 'Alive' && $donor->donor_status !== 'Deceased') {
             $compatibility['isCompatible'] = false;
             $compatibility['checks'][] = 'Donor not available';
         }
@@ -114,10 +114,14 @@ class MatchingController extends Controller
     {
         // Basic blood type compatibility rules
         $compatibility = [
-            'A' => ['A', 'AB'],
-            'B' => ['B', 'AB'],
-            'AB' => ['AB'],
-            'O' => ['A', 'B', 'AB', 'O']
+            'A+' => ['A+', 'AB+'],
+            'A-' => ['A-', 'AB-'],
+            'B+' => ['B+', 'AB+'],
+            'B-' => ['B-', 'AB-'],
+            'AB+' => ['AB+'],
+            'AB-' => ['AB-'],
+            'O+' => ['A+', 'B+', 'AB+', 'O+'],
+            'O-' => ['A-', 'B-', 'AB-', 'O-']
         ];
         
         return in_array($recipientBlood, $compatibility[$donorBlood] ?? []);
