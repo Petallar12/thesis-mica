@@ -59,7 +59,13 @@
                     </x-nav-link>
                 </div>
 
-                                <!-- Navigation Links -->
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('matching.index')" :active="request()->routeIs('matching.index')">
+                        {{ __('Matching') }}
+                    </x-nav-link>
+                </div>
+
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('schedules')" :active="request()->routeIs('schedules')">
                         {{ __('Schedules') }}

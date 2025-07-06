@@ -12,7 +12,7 @@
                 @foreach($matches as $match)
                     <div class="col-lg-6 col-xl-4 mb-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header text-white" style="background-color: #9c0f3f;">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5 class="mb-0">{{ $match['organ'] }}</h5>
                                     <span class="badge bg-light text-dark fs-6">{{ $match['matchScore'] }}/100</span>
@@ -76,6 +76,26 @@
                                 <!-- Compatibility Details -->
                                 <div class="mt-3">
                                     <h6 class="text-muted mb-2">Compatibility Checks:</h6>
+                                    <div class="small mb-2">
+                                        <ul class="list-unstyled mb-0">
+                                            <li>
+                                                <strong>Waiting Time:</strong> {{ $match['pointsBreakdown']['waiting_time']['desc'] ?? 'N/A' }}
+                                                <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['waiting_time']['points'] }}/{{ $match['pointsBreakdown']['waiting_time']['max'] }} pts</span>
+                                            </li>
+                                            <li>
+                                                <strong>Age:</strong> {{ $match['pointsBreakdown']['age']['desc'] ?? 'N/A' }}
+                                                <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['age']['points'] }}/{{ $match['pointsBreakdown']['age']['max'] }} pts</span>
+                                            </li>
+                                            <li>
+                                                <strong>Blood Type:</strong> {{ $match['pointsBreakdown']['blood_type']['desc'] ?? 'N/A' }}
+                                                <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['blood_type']['points'] }}/{{ $match['pointsBreakdown']['blood_type']['max'] }} pts</span>
+                                            </li>
+                                            <li>
+                                                <strong>Urgency:</strong> {{ $match['pointsBreakdown']['urgency']['desc'] ?? 'N/A' }}
+                                                <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['urgency']['points'] }}/{{ $match['pointsBreakdown']['urgency']['max'] }} pts</span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                     <div class="small">
                                         @foreach($match['compatibility']['checks'] as $check)
                                             <div class="mb-1">
@@ -93,11 +113,11 @@
                                     </div>
                                     <div>
                                         <a href="{{ route('donors.show', $match['donor']->id) }}" 
-                                           class="btn btn-sm btn-outline-primary me-2">
+                                           class="btn btn-sm me-2" style="background-color: #9c0f3f; color: #fff; border: none;">
                                             <i class="fas fa-eye me-1"></i>View Donor
                                         </a>
                                         <a href="{{ route('recipients.show', $match['recipient']->id) }}" 
-                                           class="btn btn-sm btn-outline-success">
+                                           class="btn btn-sm" style="background-color: #9c0f3f; color: #fff; border: none;">
                                             <i class="fas fa-eye me-1"></i>View Recipient
                                         </a>
                                     </div>

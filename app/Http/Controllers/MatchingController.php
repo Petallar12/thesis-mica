@@ -43,12 +43,15 @@ class MatchingController extends Controller
                         ) {
                             // Optionally, run further compatibility checks and scoring
                             $compatibility = $this->checkCompatibility($donor, $recipient);
+                            $pointsBreakdown = [];
+                            $matchScore = $this->calculateMatchScore($donor, $recipient, $pointsBreakdown);
                             $matches[] = [
                                 'donor' => $donor,
                                 'recipient' => $recipient,
                                 'organ' => $organ,
                                 'compatibility' => $compatibility,
-                                'matchScore' => $this->calculateMatchScore($donor, $recipient)
+                                'matchScore' => $matchScore,
+                                'pointsBreakdown' => $pointsBreakdown
                             ];
                         }
                     }
@@ -141,19 +144,31 @@ class MatchingController extends Controller
         return true; // If we can't determine, assume compatible
     }
     
-    private function calculateMatchScore($donor, $recipient)
+    private function calculateMatchScore($donor, $recipient, &$pointsBreakdown = null)
     {
         $score = 0;
+        $pointsBreakdown = [
+            'waiting_time' => ['label' => 'Waiting Time', 'points' => 0, 'max' => 30, 'desc' => ''],
+            'age' => ['label' => 'Age', 'points' => 0, 'max' => 10, 'desc' => ''],
+            'blood_type' => ['label' => 'Blood Type', 'points' => 0, 'max' => 25, 'desc' => ''],
+            'urgency' => ['label' => 'Urgency', 'points' => 0, 'max' => 35, 'desc' => ''],
+        ];
 
         // Waiting time (recipient->waiting_time in months)
         if (isset($recipient->waiting_time)) {
             $months = (int) $recipient->waiting_time;
             if ($months < 12) {
                 $score += 10;
+                $pointsBreakdown['waiting_time']['points'] = 10;
+                $pointsBreakdown['waiting_time']['desc'] = "$months months (<12)";
             } elseif ($months >= 12 && $months < 36) {
                 $score += 20;
+                $pointsBreakdown['waiting_time']['points'] = 20;
+                $pointsBreakdown['waiting_time']['desc'] = "$months months (12-35)";
             } elseif ($months >= 36) {
                 $score += 30;
+                $pointsBreakdown['waiting_time']['points'] = 30;
+                $pointsBreakdown['waiting_time']['desc'] = "$months months (36+)";
             }
         }
 
@@ -161,9 +176,12 @@ class MatchingController extends Controller
         if (isset($recipient->age)) {
             $age = (int) $recipient->age;
             if ($age < 18) {
-                $score += 0;
+                $pointsBreakdown['age']['points'] = 0;
+                $pointsBreakdown['age']['desc'] = "$age years (<18)";
             } elseif ($age >= 18) {
                 $score += 10;
+                $pointsBreakdown['age']['points'] = 10;
+                $pointsBreakdown['age']['desc'] = "$age years (18+)";
             }
         }
 
@@ -171,6 +189,10 @@ class MatchingController extends Controller
         if ($donor->blood_type && $recipient->blood_type) {
             if ($this->checkBloodTypeCompatibility($donor->blood_type, $recipient->blood_type)) {
                 $score += 25;
+                $pointsBreakdown['blood_type']['points'] = 25;
+                $pointsBreakdown['blood_type']['desc'] = 'Compatible';
+            } else {
+                $pointsBreakdown['blood_type']['desc'] = 'Incompatible';
             }
         }
 
@@ -179,12 +201,22 @@ class MatchingController extends Controller
             $urgency = strtolower($recipient->medical_urgency_score);
             if ($urgency === 'low') {
                 $score += 10;
+                $pointsBreakdown['urgency']['points'] = 10;
+                $pointsBreakdown['urgency']['desc'] = 'Low';
             } elseif ($urgency === 'medium') {
                 $score += 20;
+                $pointsBreakdown['urgency']['points'] = 20;
+                $pointsBreakdown['urgency']['desc'] = 'Medium';
             } elseif ($urgency === 'high') {
                 $score += 30;
+                $pointsBreakdown['urgency']['points'] = 30;
+                $pointsBreakdown['urgency']['desc'] = 'High';
             } elseif ($urgency === 'critical') {
                 $score += 35;
+                $pointsBreakdown['urgency']['points'] = 35;
+                $pointsBreakdown['urgency']['desc'] = 'Critical';
+            } else {
+                $pointsBreakdown['urgency']['desc'] = ucfirst($urgency);
             }
         }
 

@@ -44,7 +44,7 @@
                                 <option value="Female">Female</option>
                             </select>
                         </th>
-                        <th>Organ Needed</th>
+                        <th>Organ</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>

@@ -112,6 +112,7 @@
                             <div class="input-group"><label>Donor Status</label>
                                 <select name="donor_status" id="edit-donor-status-select">
                                     <option value="">Select Donor Status</option>
+                                    <option value="Alive">Alive</option>
                                     <option value="Deceased">Deceased</option>
                                     <option value="Not Applicable">Not Applicable</option>
                                     <option value="Pending Evaluation">Pending Evaluation</option>
