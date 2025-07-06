@@ -48,6 +48,9 @@
             <x-dropdown-link :href="route('recipients.index')">
                 {{ __('Recipients') }}
             </x-dropdown-link>
+            <x-dropdown-link :href="route('donor-card.index')">
+                {{ __('Donor Card') }}
+            </x-dropdown-link>
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('donors', function (Blueprint $table) {
-            $table->string('registration_inside_outside')->nullable()->after('donor_card_qr_code');
+            $table->string('register_outside_inside')->nullable()->after('donor_card_qr_code');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('donors', function (Blueprint $table) {
-            $table->dropColumn('registration_inside_outside');
+            $table->dropColumn('register_outside_inside');
         });
     }
 };

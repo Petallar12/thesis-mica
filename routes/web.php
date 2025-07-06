@@ -8,6 +8,7 @@ use App\Http\Controllers\MatchingController;
 // use App\Http\Controllers\AccountUserController;
 use App\Http\Controllers\NewUserRegistrationController;
 use App\Http\Controllers\OrganStatusController;
+use App\Http\Controllers\DonorCardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -49,5 +50,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/schedules', [DashboardController::class, 'schedules'])->name('schedules');
+
+Route::get('/donor-card', [DonorCardController::class, 'index'])->name('donor-card.index');
+Route::get('/donor-card/{donor}/edit', [DonorCardController::class, 'edit'])->name('donor-card.edit');
+Route::post('/donor-card/{donor}', [DonorCardController::class, 'update'])->name('donor-card.update');
 
 require __DIR__.'/auth.php';
