@@ -36,11 +36,8 @@
                                             <span class="badge bg-info">{{ $match['donor']->blood_type ?? 'N/A' }}</span>
                                         </div>
                                         <div class="mb-2">
-                                            <strong>Waiting Time (months):</strong> {{ $match['donor']->waiting_time ?? 'N/A' }}
-                                        </div>
-                                        <div class="mb-2">
-                                            <strong>Status:</strong> 
-                                            <span class="badge bg-{{ $match['donor']->donor_status === 'Available' ? 'success' : 'warning' }}">
+                                            <strong>Donor Status:</strong>
+                                            <span class="badge bg-{{ $match['donor']->donor_status === 'Alive' ? 'success' : ($match['donor']->donor_status === 'Deceased' ? 'danger' : 'warning') }}">
                                                 {{ $match['donor']->donor_status ?? 'N/A' }}
                                             </span>
                                         </div>
@@ -111,7 +108,7 @@
                                     <div class="small text-muted">
                                         Match Score: {{ $match['matchScore'] }}/100
                                     </div>
-                                    <div>
+                                    {{-- <div>
                                         <a href="{{ route('donors.show', $match['donor']->id) }}" 
                                            class="btn btn-sm me-2" style="background-color: #9c0f3f; color: #fff; border: none;">
                                             <i class="fas fa-eye me-1"></i>View Donor
@@ -120,7 +117,7 @@
                                            class="btn btn-sm" style="background-color: #9c0f3f; color: #fff; border: none;">
                                             <i class="fas fa-eye me-1"></i>View Recipient
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
