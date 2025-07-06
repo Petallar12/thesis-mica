@@ -26,6 +26,7 @@
                 <div id="createSuccessMessage" class="success-message"></div>
                 <form id="createDonorForm" method="POST" action="{{ route('donors.store') }}" class="mt-4">
                     @csrf
+                    <input type="hidden" name="registration_inside_outside" value="Inside" />
 
                     <div id="create-personal" class="tab-content active">
                         <div class="form-group grid grid-cols-2 gap-4">
