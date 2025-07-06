@@ -17,43 +17,32 @@
                     </x-nav-link>
                 </div>
                                 <!-- Navigation Links -->
-<!-- Records Dropdown -->
-<div class="hidden sm:flex sm:items-center sm:ms-10 relative" x-data="{ open: false }">
-    <button @click="open = !open" type="button" 
-        class="inline-flex items-center px-3 py-2 text-sm leading-4 font-medium text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-        aria-expanded="false" aria-haspopup="true"
-    >
-        {{ __('Records') }}
-        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7l3-3 3 3m0 6l-3 3-3-3" />
-        </svg>
-    </button>
+                <div class="hidden sm:flex sm:items-center sm:ms-10">
+                    <x-dropdown align="left" width="48">
+                        <x-slot name="trigger">
+                            <button class="inline-flex items-center px-3 py-2 text-sm leading-4 font-medium text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                <div>{{ __('Records') }}</div>
+                                <div class="ms-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </x-slot>
 
-    <!-- Dropdown menu -->
-    <div 
-        x-show="open" @click.away="open = false"
-        x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="opacity-0 translate-y-1"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 translate-y-1"
-        class="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
-        style="display: none;"
-    >
-        <div class="py-1">
-            <x-dropdown-link :href="route('donors.index')">
-                {{ __('Donors') }}
-            </x-dropdown-link>
-            <x-dropdown-link :href="route('recipients.index')">
-                {{ __('Recipients') }}
-            </x-dropdown-link>
-            <x-dropdown-link :href="route('donor-card.index')">
-                {{ __('Donor Card') }}
-            </x-dropdown-link>
-        </div>
-    </div>
-</div>
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('donors.index')">
+                                {{ __('Donors') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('recipients.index')">
+                                {{ __('Recipients') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('donor-card.index')">
+                                {{ __('Donor Card') }}
+                            </x-dropdown-link>
+                        </x-slot>
+                    </x-dropdown>
+                </div>
 
                                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

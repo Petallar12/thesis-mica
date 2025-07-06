@@ -12,6 +12,7 @@ class OrganStatusController extends Controller
     {
         // Get available organs from active donors with their total count
         $availableOrgans = Donor::where('status', 'Active')
+            ->where('register_outside_inside','Inside')
             ->select('organ_needed', DB::raw('COUNT(*) as total_count'))
             ->groupBy('organ_needed')
             ->get();

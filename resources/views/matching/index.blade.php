@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Donor-Recipient Matching</h2>
+            <h2 class="header-title font-semibold text-gray-700">Donor-Recipient Matching</h2>
             <div class="text-muted">
                 <small>Showing {{ count($matches) }} potential matches</small>
             </div>
