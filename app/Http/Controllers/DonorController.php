@@ -14,7 +14,7 @@ class DonorController extends Controller
      */
     public function index()
     {
-        $donors = Donor::all();
+        $donors = Donor::where('registration_inside_outside', 'Inside')->get();
         return view('donors.index', compact('donors'));
     }
 

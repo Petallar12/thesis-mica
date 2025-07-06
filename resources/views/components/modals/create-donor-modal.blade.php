@@ -26,8 +26,7 @@
                 <div id="createSuccessMessage" class="success-message"></div>
                 <form id="createDonorForm" method="POST" action="{{ route('donors.store') }}" class="mt-4">
                     @csrf
-                    <input type="hidden" name="registration_inside_outside" value="Inside" />
-
+                    
                     <div id="create-personal" class="tab-content active">
                         <div class="form-group grid grid-cols-2 gap-4">
                             <div class="input-group"><label>First Name <span class="required">*</span></label><input type="text" name="first_name" required /></div>
@@ -47,6 +46,13 @@
                             <div class="input-group"><label>Email Address <span class="required">*</span></label><input type="email" name="contact_information" /></div>
                             <div class="input-group"><label>Government ID Number</label><input type="text" name="goverment_id_number" /></div>
                             <div class="input-group"><label>Address</label><input type="text" name="address" /></div>
+                            <div class="input-group">
+                                <label>Registered Where</label>
+                                <select name="register_outside_inside" required>
+                                    <option value="Inside">Inside</option>
+                                </select>
+                            </div>
+
                         </div>
                     </div>
 
