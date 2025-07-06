@@ -33,7 +33,8 @@
                             <div class="input-group"><label>Middle Name</label><input type="text" name="middle_name" /></div>
                             <div class="input-group"><label>Last Name <span class="required">*</span></label><input type="text" name="last_name" required /></div>
                             <div class="input-group"><label>Gender <span class="required">*</span></label><select name="gender" required><option value="">Select Gender</option><option value="Male">Male</option><option value="Female">Female</option></select></div>
-                            <div class="input-group"><label>Birthday</label><input type="date" name="birthday" /></div>
+                            <div class="input-group"><label>Birthday</label><input type="date" name="birthday" id="donor-birthday" /></div>
+                            <div class="input-group"><label>Age</label><input type="number" name="age" id="donor-age" readonly style="background:#f3f3f3;cursor:not-allowed;" /></div>
                             {{-- <div class="input-group"><label>Age <span class="required">*</span></label><input type="number" name="age" min="0" required /></div> --}}
                             <div class="input-group">
                                 <label>Nationality</label>
@@ -248,6 +249,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     organSelect.appendChild(option);
                 });
             });
+    }
+    const birthdayInput = document.getElementById('donor-birthday');
+    const ageInput = document.getElementById('donor-age');
+    if (birthdayInput && ageInput) {
+        birthdayInput.addEventListener('change', function () {
+            const birthDate = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            ageInput.value = isNaN(age) || age < 0 ? '' : age;
+        });
     }
 });
 </script> 

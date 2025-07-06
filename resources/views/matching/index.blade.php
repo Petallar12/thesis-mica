@@ -36,7 +36,7 @@
                                             <span class="badge bg-info">{{ $match['donor']->blood_type ?? 'N/A' }}</span>
                                         </div>
                                         <div class="mb-2">
-                                            <strong>Height:</strong> {{ $match['donor']->height ?? 'N/A' }} cm
+                                            <strong>Waiting Time (months):</strong> {{ $match['donor']->waiting_time ?? 'N/A' }}
                                         </div>
                                         <div class="mb-2">
                                             <strong>Status:</strong> 
@@ -62,12 +62,12 @@
                                             <span class="badge bg-info">{{ $match['recipient']->blood_type ?? 'N/A' }}</span>
                                         </div>
                                         <div class="mb-2">
-                                            <strong>Height:</strong> {{ $match['recipient']->height ?? 'N/A' }} cm
+                                            <strong>Waiting Time:</strong> {{ $match['recipient']->waiting_time ?? 'N/A' }} Months
                                         </div>
                                         <div class="mb-2">
                                             <strong>Urgency:</strong> 
                                             <span class="badge bg-{{ $match['recipient']->medical_urgency_score >= 8 ? 'danger' : ($match['recipient']->medical_urgency_score >= 6 ? 'warning' : 'secondary') }}">
-                                                {{ $match['recipient']->medical_urgency_score ?? 'N/A' }}/10
+                                                {{ $match['recipient']->medical_urgency_score ?? 'N/A' }}
                                             </span>
                                         </div>
                                     </div>

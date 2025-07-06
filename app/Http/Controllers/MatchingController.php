@@ -144,50 +144,50 @@ class MatchingController extends Controller
     private function calculateMatchScore($donor, $recipient)
     {
         $score = 0;
-        
-        // Blood type compatibility (40 points)
+
+        // Waiting time (recipient->waiting_time in months)
+        if (isset($recipient->waiting_time)) {
+            $months = (int) $recipient->waiting_time;
+            if ($months < 12) {
+                $score += 10;
+            } elseif ($months >= 12 && $months < 36) {
+                $score += 20;
+            } elseif ($months >= 36) {
+                $score += 30;
+            }
+        }
+
+        // Age (recipient->age)
+        if (isset($recipient->age)) {
+            $age = (int) $recipient->age;
+            if ($age < 18) {
+                $score += 0;
+            } elseif ($age >= 18) {
+                $score += 10;
+            }
+        }
+
+        // Blood type compatibility (25 points)
         if ($donor->blood_type && $recipient->blood_type) {
             if ($this->checkBloodTypeCompatibility($donor->blood_type, $recipient->blood_type)) {
-                $score += 40;
+                $score += 25;
             }
         }
-        
-        // Age compatibility (20 points)
-        if ($donor->age && $recipient->age) {
-            $ageDiff = abs($donor->age - $recipient->age);
-            if ($ageDiff <= 10) {
-                $score += 20;
-            } elseif ($ageDiff <= 20) {
-                $score += 15;
-            } elseif ($ageDiff <= 30) {
+
+        // Medical urgency (Low=10, Medium=20, High=30, Critical=35)
+        if (isset($recipient->medical_urgency_score)) {
+            $urgency = strtolower($recipient->medical_urgency_score);
+            if ($urgency === 'low') {
                 $score += 10;
-            }
-        }
-        
-        // Size compatibility (20 points)
-        if ($donor->height && $recipient->height) {
-            $heightDiff = abs($donor->height - $recipient->height);
-            if ($heightDiff <= 10) {
+            } elseif ($urgency === 'medium') {
                 $score += 20;
-            } elseif ($heightDiff <= 20) {
-                $score += 15;
-            } elseif ($heightDiff <= 30) {
-                $score += 10;
+            } elseif ($urgency === 'high') {
+                $score += 30;
+            } elseif ($urgency === 'critical') {
+                $score += 35;
             }
         }
-        
-        // Medical urgency (20 points)
-        if ($recipient->medical_urgency_score) {
-            $urgency = (int) $recipient->medical_urgency_score;
-            if ($urgency >= 8) {
-                $score += 20;
-            } elseif ($urgency >= 6) {
-                $score += 15;
-            } elseif ($urgency >= 4) {
-                $score += 10;
-            }
-        }
-        
+
         return $score;
     }
 } 
