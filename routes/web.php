@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/donor', [DonorController::class, 'store'])->name('donor.store');
+Route::post('/donor/send-verification', [DonorController::class, 'sendVerification']);
+Route::post('/donor/verify-code', [DonorController::class, 'verifyCode']);
 
 // Commenting out previous role-restricted registration routes
 // Route::middleware(['auth', 'can:access-registration'])->group(function () {

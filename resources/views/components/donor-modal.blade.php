@@ -143,7 +143,15 @@
                 </div>
                 <div class="input-group">
                     <label>Email Address *</label>
-                    <input type="email" name="contact_information" required />
+                    <input type="email" name="contact_information" id="contact_information" required />
+                    <button type="button" id="sendVerificationBtn" class="submit-btn" style="margin-top: 8px; width: 100%;">Send Verification Code</button>
+                </div>
+                <div class="input-group" id="verificationSection" style="display:none;">
+                    <label>Enter Verification Code</label>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="text" id="verificationCode" placeholder="Enter code" style="flex: 2;" />
+                        <button type="button" id="verifyCodeBtn" class="submit-btn" style="flex: 1; min-width: 100px;">Verify</button>
+                    </div>
                 </div>
                 <div class="input-group">
                     <label>Contact Number *</label>
@@ -299,11 +307,13 @@
 
           <div class="form-actions">
               <button type="button" class="cancel-btn">Cancel</button>
-              <button type="submit" class="submit-btn">Submit</button>
+              <button type="submit" id="submitBtn" class="submit-btn" disabled>Submit</button>
           </div>
       </form>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -388,4 +398,53 @@
       });
   });
 </script>
+
+@push('scripts')
+<script>
+let emailVerified = false;
+
+$('#sendVerificationBtn').on('click', function() {
+    let email = $('#contact_information').val();
+    if (!email) {
+        alert('Please enter your email address first.');
+        return;
+    }
+    $.post('/donor/send-verification', { email, _token: '{{ csrf_token() }}' }, function(res) {
+        alert(res.message);
+        $('#verificationSection').show();
+    }).fail(function(xhr) {
+        alert('Failed to send verification code.');
+    });
+});
+
+$('#verifyCodeBtn').on('click', function() {
+    let email = $('#contact_information').val();
+    let code = $('#verificationCode').val();
+    if (!code) {
+        alert('Please enter the verification code.');
+        return;
+    }
+    $.post('/donor/verify-code', { email, code, _token: '{{ csrf_token() }}' }, function(res) {
+        if (res.verified) {
+            emailVerified = true;
+            alert('Email verified!');
+            $('#submitBtn').prop('disabled', false);
+        } else {
+            alert('Invalid code.');
+        }
+    }).fail(function(xhr) {
+        alert('Invalid code.');
+    });
+});
+
+$('#donorForm').on('submit', function(e) {
+    if (!emailVerified) {
+        e.preventDefault();
+        alert('Please verify your email first.');
+    }
+});
+</script>
+@endpush
+
+@stack('scripts')
   

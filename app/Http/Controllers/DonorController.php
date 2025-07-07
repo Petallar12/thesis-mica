@@ -6,6 +6,8 @@ use App\Models\Donor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DonorRegistrationConfirmation;
+use Illuminate\Support\Facades\Cache;
+use App\Mail\DonorEmailVerification;
 
 class DonorController extends Controller
 {
@@ -105,5 +107,31 @@ class DonorController extends Controller
             return response()->json(['success' => true]);
         }
         return redirect()->route('donors.index')->with('success', 'Donor deleted successfully.');
+    }
+
+    /**
+     * Send a verification code to the donor's email address.
+     */
+    public function sendVerification(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+        $code = rand(100000, 999999);
+        Cache::put('donor_verification_' . $request->email, $code, now()->addMinutes(10));
+        Mail::to($request->email)->send(new DonorEmailVerification($code));
+        return response()->json(['message' => 'Verification code sent!']);
+    }
+
+    /**
+     * Verify the code entered by the donor.
+     */
+    public function verifyCode(Request $request)
+    {
+        $request->validate(['email' => 'required|email', 'code' => 'required']);
+        $cachedCode = Cache::get('donor_verification_' . $request->email);
+        if ($cachedCode && $request->code == $cachedCode) {
+            Cache::put('donor_verified_' . $request->email, true, now()->addMinutes(15));
+            return response()->json(['verified' => true]);
+        }
+        return response()->json(['verified' => false], 422);
     }
 }
