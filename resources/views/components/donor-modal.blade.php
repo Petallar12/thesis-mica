@@ -230,7 +230,7 @@
                   </div> --}}
                   <div class="input-group">
                     <label>Blood Type <span class="">*</span></label>
-                    <select name="blood_type" required>
+                    <select name="blood_type">
                         <option value="">Select Blood Type</option>
                         <option value="O">O</option>
                                     <option value="O+">O+</option>
@@ -278,7 +278,7 @@
 
                 <div class="input-group">
                     <label>Registration Method<span class="">*</span></label>
-                    <select name="blood_type" >
+                    <select name="registration_method" >
                         <option value="">Select Registration Method</option>
                         <option value="Web">Web</option>
                         <option value="App">App</option>
