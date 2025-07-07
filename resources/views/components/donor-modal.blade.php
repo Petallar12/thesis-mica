@@ -26,7 +26,7 @@
                   </div>
                   <div class="input-group">
                       <label>Middle Name *</label>
-                      <input type="text" name="middle_name" required />
+                      <input type="text" name="middle_name" />
                   </div>
                   <div class="input-group">
                       <label>Last Name *</label>
@@ -34,7 +34,7 @@
                   </div>
                   <div class="input-group">
                     <label>Gender *</label>
-                    <select name="gender" required>
+                    <select name="gender">
                         <option value="">Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -147,7 +147,7 @@
                 </div>
                 <div class="input-group">
                     <label>Contact Number *</label>
-                    <input type="text" name="contact_number" required />
+                    <input type="text" name="contact_number" />
                 </div>
                   <div class="input-group">
                       <label>Government ID *</label>
@@ -167,7 +167,7 @@
               <div class="form-group grid grid-cols-2 gap-4">
                   <div class="input-group"><label>Kin Full Name</label><input type="text" name="kin_fullname" /></div>
                   <div class="input-group"><label>Relationship to Donor</label>
-                      <select name="relationship_to_donor" required>
+                      <select name="relationship_to_donor" >
                           <option value="">Select Relationship</option>
                           <option value="Parent">Parent</option>
                           <option value="Sibling">Sibling</option>
@@ -179,7 +179,7 @@
                   <div class="input-group"><label>Kin Email</label><input type="email" name="kin_email" /></div>
                   <div class="input-group"><label>Kin Address</label><input type="text" name="kin_address" /></div>
                   <div class="input-group"><label>Kin Consent</label> 
-                      <select name="kin_consent" required>
+                      <select name="kin_consent" >
                           <option value="">Select Consent</option>
                           <option value="Yes">Yes</option>
                           <option value="No">No</option>
@@ -206,7 +206,7 @@
                 </div>
                 <div class="input-group">
                     <label>Donation Type</label>
-                    <select name="donation_type" required>
+                    <select name="donation_type" >
                         <option value="">Select Status</option>
                         <option value="Transplantation">Transplantation</option>
                         <option value="Research and Education">Research and Education</option>
@@ -226,10 +226,10 @@
               <div class="form-group">
                   {{-- <div class="input-group">
                       <label>Medical History *</label>
-                      <input type="text" name="medical_history" required />
+                      <input type="text" name="medical_history"  />
                   </div> --}}
                   <div class="input-group">
-                    <label>Blood Type <span class="required">*</span></label>
+                    <label>Blood Type <span class="">*</span></label>
                     <select name="blood_type" required>
                         <option value="">Select Blood Type</option>
                         <option value="O">O</option>
@@ -263,11 +263,11 @@
 
                 {{-- <div class="input-group">
                       <label>Donation Preferences *</label>
-                      <input type="text" name="donation_preferences" required />
+                      <input type="text" name="donation_preferences"  />
                   </div>
                   <div class="input-group">
                       <label>Donate Organ *</label>
-                      <input type="text" name="organ_needed" required />
+                      <input type="text" name="organ_needed"  />
                   </div> --}}
               </div>
           </div>
@@ -277,8 +277,8 @@
                 <div class="input-group"><label>Donor Card Registration Date</label><input type="date" name="donor_card_registration_date" /></div>
 
                 <div class="input-group">
-                    <label>Registration Method<span class="required">*</span></label>
-                    <select name="blood_type" required>
+                    <label>Registration Method<span class="">*</span></label>
+                    <select name="blood_type" >
                         <option value="">Select Registration Method</option>
                         <option value="Web">Web</option>
                         <option value="App">App</option>
@@ -288,11 +288,11 @@
                 </div>
                   <div class="input-group">
                       <label>Contact Number *</label>
-                      <input type="text" name="contact_number" required />
+                      <input type="text" name="contact_number" />
                   </div>
                   <div class="input-group">
                       <label>Registered By *</label>
-                      <input type="text" name="encoded_by" required />
+                      <input type="text" name="encoded_by" />
                   </div>
               </div>
           </div>
