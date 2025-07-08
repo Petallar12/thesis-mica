@@ -57,7 +57,6 @@
                         <td>{{ $donor->last_name }}</td>
                         <td>{{ $donor->contact_information }}</td>
                         <td>{{ $donor->kin_fullname }}</td>
-
                         <td>{{ $donor->blood_type }}</td>
                         <td>{{ $donor->gender }}</td>
                         <td>{{ $donor->organ_needed }}</td>
@@ -95,6 +94,7 @@
                 
                 <div class="tabs">
                     <button type="button" class="tab active" data-tab="personal">Personal Information</button>
+                    <button type="button" class="tab" data-tab="kin">Kin Information</button>
                     <button type="button" class="tab" data-tab="medical">Medical Information</button>
                     <button type="button" class="tab" data-tab="contact">Contact Information</button>
                 </div>
@@ -184,6 +184,7 @@
                     success: function(data) {
                         const details = $(data);
                         const personalInfo = $('<div id="personal" class="tab-content active"></div>');
+                        const kinInfo = $('<div id="kin" class="tab-content"></div>');
                         const medicalInfo = $('<div id="medical" class="tab-content"></div>');
                         const contactInfo = $('<div id="contact" class="tab-content"></div>');
                         
@@ -194,8 +195,12 @@
                             row.find('th').addClass('detail-label');
                             row.find('td').addClass('detail-value');
                             
-                            if (category === 'medical') {
+                            if (category === 'kin') {
+                                kinInfo.append(row);
+                            } else if (category === 'medical') {
                                 medicalInfo.append(row);
+                            // } else if (category === 'medical') {
+                            //     medicalInfo.append(row);
                             } else if (category === 'contact') {
                                 contactInfo.append(row);
                             } else {
@@ -205,6 +210,7 @@
 
                         $('#donorDetailsContent').empty()
                             .append(personalInfo)
+                            .append(kinInfo)
                             .append(medicalInfo)
                             .append(contactInfo);
 
@@ -348,6 +354,15 @@
                     'Status',
                     'Encoded Date'
                 ];
+                const kinFields = [
+                    'Kin Full Name',
+                    'Relationship to Donor',
+                    'Kin Contact Number',
+                    'Kin Email',
+                    'Kin Address',
+                    'Kin Consent'
+
+                ];
                 
                 const medicalFields = [
                     'Medical History',
@@ -363,6 +378,7 @@
                 ];
                 
                 if (personalFields.includes(label)) return 'personal';
+                if (kinFields.includes(label)) return 'kin';
                 if (medicalFields.includes(label)) return 'medical';
                 if (contactFields.includes(label)) return 'contact';
                 return 'personal'; // default to personal if not found
