@@ -18,7 +18,7 @@
                 <button type="button" class="tab" data-tab="create-medical">Medical Information</button>
                 <button type="button" class="tab" data-tab="create-organ-specific-information">Organ-Specific Information</button>
                 <button type="button" class="tab" data-tab="create-system-information">System Information</button>
-                <button type="button" class="tab" data-tab="create-others">Others</button>
+                {{-- <button type="button" class="tab" data-tab="create-others">Others</button> --}}
                 {{-- <button type="button" class="tab" data-tab="create-contact">Contact Information</button> --}}
             </div>
 

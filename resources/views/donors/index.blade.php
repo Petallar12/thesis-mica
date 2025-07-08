@@ -96,6 +96,9 @@
                     <button type="button" class="tab active" data-tab="personal">Personal Information</button>
                     <button type="button" class="tab" data-tab="kin">Kin Information</button>
                     <button type="button" class="tab" data-tab="medical">Medical Information</button>
+                    <button type="button" class="tab" data-tab="organ">Organ-Specific Information</button>
+                    <button type="button" class="tab" data-tab="system">System Information</button>
+
                     <button type="button" class="tab" data-tab="contact">Contact Information</button>
                 </div>
 
@@ -186,6 +189,9 @@
                         const personalInfo = $('<div id="personal" class="tab-content active"></div>');
                         const kinInfo = $('<div id="kin" class="tab-content"></div>');
                         const medicalInfo = $('<div id="medical" class="tab-content"></div>');
+                        const organInfo = $('<div id="organ" class="tab-content"></div>');
+                        const systemInfo = $('<div id="system" class="tab-content"></div>');
+                        // const organInfo = $('<div id="organ" class="tab-content"></div>');
                         const contactInfo = $('<div id="contact" class="tab-content"></div>');
                         
                         // Sort details into appropriate tabs
@@ -199,8 +205,10 @@
                                 kinInfo.append(row);
                             } else if (category === 'medical') {
                                 medicalInfo.append(row);
-                            // } else if (category === 'medical') {
-                            //     medicalInfo.append(row);
+                            } else if (category === 'organ') {
+                                organInfo.append(row);
+                            } else if (category === 'system') {
+                                systemInfo.append(row);
                             } else if (category === 'contact') {
                                 contactInfo.append(row);
                             } else {
@@ -212,6 +220,8 @@
                             .append(personalInfo)
                             .append(kinInfo)
                             .append(medicalInfo)
+                            .append(organInfo)
+                            .append(systemInfo)
                             .append(contactInfo);
 
                         // Ensure first tab is active by default
@@ -371,6 +381,25 @@
                     'Waiting Time'
                 ];
                 
+                const organFields = [
+                    'Organ Needed',
+                    'Organ Size',
+                    'Organ Function',
+                    'Retrieval Time',
+                    'Organ Preservation Status',
+                    'Condition of Organs',
+                    'Organ Compatibility',
+                    'Organ Recovery Team',
+                    'Transplant Status'
+                ];
+
+                const systemFields = [
+                    'Donor Card Registration Date',
+                    'Registration Method',
+                    'Notification Set to Family',
+                    'Donor Card QR Code'
+                ];
+
                 const contactFields = [
                     'Contact Information',
                     'Contact Number',
@@ -380,6 +409,8 @@
                 if (personalFields.includes(label)) return 'personal';
                 if (kinFields.includes(label)) return 'kin';
                 if (medicalFields.includes(label)) return 'medical';
+                if (organFields.includes(label)) return 'organ';
+                if (systemFields.includes(label)) return 'system';
                 if (contactFields.includes(label)) return 'contact';
                 return 'personal'; // default to personal if not found
             }
