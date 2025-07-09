@@ -27,9 +27,14 @@ WORKDIR /var/www/html
 
 COPY . /var/www/html
 
+# Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Install Node dependencies and build assets
 RUN npm install && npm run build
 
+# Set permissions for storage and cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 80
