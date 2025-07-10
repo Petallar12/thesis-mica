@@ -24,6 +24,7 @@ class OrganStatusController extends Controller
     {
         $organType = $request->input('organ_type');
         $organs = Donor::where('status', 'Active')
+            ->where('register_outside_inside','Inside')
             ->where('organ_needed', $organType)
             ->select('organ_size', 'blood_type')
             ->get();
