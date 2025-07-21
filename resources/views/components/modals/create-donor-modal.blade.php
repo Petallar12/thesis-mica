@@ -65,7 +65,7 @@
                                     <option value="Parent">Parent</option>
                                     <option value="Sibling">Sibling</option>
                                     <option value="Child">Child</option>
-                                    <option value="Friend">Friend</option>
+                                    <option value="Spouse">Spouse</option>
 
                                 </select>
                             </div>
@@ -169,7 +169,7 @@
                                     <option value="">Select Organ</option>
                                 </select>
                             </div>
-                            <div class="input-group"><label>Organ Size</label><input type="text" name="organ_size" /></div>
+                            <div class="input-group"><label>Organ Size (cm)</label><input type="text" name="organ_size" /></div>
                             <div class="input-group"><label>Organ Function</label><input type="text" name="ogran_function" /></div>
                             <div class="input-group"><label>Retrieval Time</label><input type="time" name="retrieval_time" /></div>
                             <div class="input-group"><label>Organ Preservation Status</label><input type="text" name="organ_preservation_status" /></div>

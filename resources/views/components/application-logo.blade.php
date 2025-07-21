@@ -3,7 +3,9 @@
 </svg> --}}
 
 <div {{ $attributes->merge(['class' => 'text-center']) }}>
-    <h1 class="text-2xl font-bold text-gray-700">PhilNOS</h1>
+    @unless (request()->routeIs('login'))
+        <h1 class="text-2xl font-bold text-gray-700">PhilNOS</h1>
+    @endunless
     <h2 class="text-xl text-gray-600"></h2>
     <h1 class="text-2xl font-bold text-gray-700"></h1>
 </div>

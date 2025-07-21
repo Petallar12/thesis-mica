@@ -63,9 +63,9 @@
                                 <i class="fa-solid fa-eye"></i>
                             </a>
                             @if(auth()->user()->role === 'SuperAdmin' || auth()->user()->role === 'Encoder')
-                            <a href="{{ route('donors.edit', $donor->id) }}" class="actionBtn" title="Edit Donor">
+                            {{-- <a href="{{ route('donors.edit', $donor->id) }}" class="actionBtn" title="Edit Donor">
                                 <i class="fa-solid fa-square-pen"></i>
-                            </a>
+                            </a> --}}
                             <form class="inline delete-form">
                                 @csrf
                                 @method('DELETE')

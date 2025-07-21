@@ -5,6 +5,8 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <div style="text-align: center; font-size: 1.7rem; font-weight: 600; color: #374151; margin-bottom: 1.2rem;">PhilNOS</div>
+
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -39,9 +41,21 @@
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <input type="submit" class="submit" value="Login" />
         </div>
     </form>
+
+    <style>
+  .submit {
+      padding: 0.2rem 1.5rem;
+      background-color: #9c0f3f !important;
+      border: none;
+      color: #fff !important;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left:5px;
+  }
+    </style>
 </x-guest-layout>
