@@ -257,7 +257,7 @@
                 <div class="input-group"><label>Height</label><input type="number" name="height" step="0.01" /></div>
                 <div class="input-group"><label>Weight</label><input type="number" name="weight" step="0.01" /></div>
                 <div class="input-group"><label>Medical History</label><input type="text" name="medical_history" /></div>
-                <div class="input-group">
+                {{-- <div class="input-group">
                     <label>Transplant Status</label>
                     <select name="transplant_status">
                         <option value="">Select Status</option>
@@ -267,7 +267,7 @@
                         <option value="Completed">Completed</option>
                         <option value="Cancelled">Cancelled</option>
                     </select>
-                </div>
+                </div> --}}
 
                 {{-- <div class="input-group">
                       <label>Donation Preferences *</label>
