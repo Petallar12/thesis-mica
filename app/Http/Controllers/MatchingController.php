@@ -36,6 +36,8 @@ class MatchingController extends Controller
                         // 4. Both transplant_status = 'Waiting'
                         if (
                             $donor->blood_type === $recipient->blood_type &&
+                            $donor->register_outside_inside === 'Inside' &&
+                            $recipient->register_outside_inside === 'Inside' &&
                             $donor->status === 'Active' &&
                             $recipient->status === 'Active' &&
                             $donor->transplant_status === 'Waiting' &&
