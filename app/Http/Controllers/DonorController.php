@@ -31,6 +31,15 @@ class DonorController extends Controller
 
         return response()->json(['success' => true]);
     }
+public function setInside(Donor $donor)
+{
+    // Update the 'register_outside_inside' field to 'Inside'
+    $donor->update(['register_outside_inside' => 'Inside']);
+
+    return response()->json(['success' => true]);
+}
+
+
     /**
      * Show donor registration form (optional if you're using a modal).
      */

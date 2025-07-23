@@ -21,13 +21,21 @@ class RecipientController extends Controller
         return view('recipient.index_archive', compact('archive'));
     }
 
-public function archive(Recipients $recipient)
+    public function archive(Recipients $recipient)
     {
         // Update the 'register_outside_inside' field to 'Archive'
         $recipient->update(['register_outside_inside' => 'Archive']);
 
         return response()->json(['success' => true]);
     }   
+public function setInside(Recipients $recipient)  // Change Donor to Recipients
+{
+    // Update the 'register_outside_inside' field to 'Inside'
+    $recipient->update(['register_outside_inside' => 'Inside']);
+
+    return response()->json(['success' => true]);
+}
+
 
     public function store(Request $request)
     {

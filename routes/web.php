@@ -60,6 +60,9 @@ Route::get('/donor-card/{donor}/edit', [DonorCardController::class, 'edit'])->na
 Route::post('/donor-card/{donor}', [DonorCardController::class, 'update'])->name('donor-card.update');
 Route::post('/donors/{donor}/archive', [DonorController::class, 'archive'])->name('donors.archive');
 Route::post('/recipients/{recipient}/archive', [RecipientController::class, 'archive'])->name('recipients.archive');
+Route::post('/donors/{donor}/set-inside', [DonorController::class, 'setInside'])->name('donors.setInside');
+Route::post('/recipients/{recipient}/set-inside', [RecipientController::class, 'setInside'])->name('recipients.setInside');
+
 
 
 require __DIR__.'/auth.php';

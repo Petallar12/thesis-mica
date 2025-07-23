@@ -76,6 +76,9 @@
                                     <i class="fa-solid fa-circle-minus"></i>
                                 </button>
                             </form> --}}
+                        <button type="button" class="actionBtn set-inside-btn" data-id="{{ $donor->id }}" title="Set Inside">
+                            <i class="fa-solid fa-archive"></i>
+                        </button>
                             @endif
                         </td>
                     </tr>
@@ -461,5 +464,52 @@
                 });
             });
         });
+        $(document).on('click', '.set-inside-btn', function(e) {
+    e.preventDefault();
+    const donorId = $(this).data('id');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Are you sure you want to unarchive this donor?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, set it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `/donors/${donorId}/set-inside`,  // This should be the correct route
+                type: 'POST',
+                data: { 
+                    _token: $('meta[name="csrf-token"]').attr('content') 
+                },
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire(
+                            'Updated!',
+                            'Donor has been unarchived.',
+                            'success'
+                        ).then(() => location.reload());  // Reload the page to reflect changes
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'Failed to update donor status.',
+                            'error'
+                        );
+                    }
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire(
+                        'Error!',
+                        'An error occurred. Please try again.',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+});
+
     </script>
 </x-app-layout>
