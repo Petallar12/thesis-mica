@@ -13,27 +13,22 @@ class MatchingController extends Controller
         // Get all donors and recipients
         $donors = Donor::all();
         $recipients = Recipients::all();
-        
-        // Group donors by organ available
+
+        // Group donors and recipients by organ
         $donorsByOrgan = $donors->groupBy('organ_needed');
-        
-        // Group recipients by organ needed
         $recipientsByOrgan = $recipients->groupBy('organ_needed');
-        
-        // Create matches
+
+        // Create matches grouped by donor
         $matches = [];
-        
-        foreach ($donorsByOrgan as $organ => $donors) {
+
+        foreach ($donorsByOrgan as $organ => $donorsGroup) {
             if (isset($recipientsByOrgan[$organ])) {
-                $recipients = $recipientsByOrgan[$organ];
-                
-                foreach ($donors as $donor) {
-                    foreach ($recipients as $recipient) {
-                        // Strictly require all four criteria:
-                        // 1. Same organ_needed (already grouped)
-                        // 2. Same blood type
-                        // 3. Both status = 'Active'
-                        // 4. Both transplant_status = 'Waiting'
+                $recipientsGroup = $recipientsByOrgan[$organ];
+
+                foreach ($donorsGroup as $donor) {
+                    $donorMatches = [];
+
+                    foreach ($recipientsGroup as $recipient) {
                         if (
                             $donor->blood_type === $recipient->blood_type &&
                             $donor->register_outside_inside === 'Inside' &&
@@ -43,11 +38,11 @@ class MatchingController extends Controller
                             $donor->transplant_status === 'Waiting' &&
                             $recipient->transplant_status === 'Waiting'
                         ) {
-                            // Optionally, run further compatibility checks and scoring
                             $compatibility = $this->checkCompatibility($donor, $recipient);
                             $pointsBreakdown = [];
                             $matchScore = $this->calculateMatchScore($donor, $recipient, $pointsBreakdown);
-                            $matches[] = [
+
+                            $donorMatches[] = [
                                 'donor' => $donor,
                                 'recipient' => $recipient,
                                 'organ' => $organ,
@@ -57,38 +52,42 @@ class MatchingController extends Controller
                             ];
                         }
                     }
+
+                    if (!empty($donorMatches)) {
+                        usort($donorMatches, function ($a, $b) {
+                            return $b['matchScore'] <=> $a['matchScore'];
+                        });
+
+                        $matches[$donor->id] = [
+                            'donor' => $donor,
+                            'organ' => $organ,
+                            'recipient_matches' => $donorMatches
+                        ];
+                    }
                 }
             }
         }
-        
-        // Sort matches by match score (highest first)
-        usort($matches, function($a, $b) {
-            return $b['matchScore'] <=> $a['matchScore'];
-        });
-        
-        return view('matching.index', compact('matches', 'donors', 'recipients'));
+
+        return view('matching.index', compact('matches'));
     }
-    
+
     private function checkCompatibility($donor, $recipient)
     {
         $compatibility = [
             'isCompatible' => true,
             'checks' => []
         ];
-        
-        // Check if donor is available (status check)
+
         if ($donor->donor_status !== 'Alive' && $donor->donor_status !== 'Deceased') {
             $compatibility['isCompatible'] = false;
             $compatibility['checks'][] = 'Donor not available';
         }
-        
-        // Check if recipient is still waiting
+
         if ($recipient->transplant_status !== 'Waiting' && $recipient->transplant_status !== 'Listed') {
             $compatibility['isCompatible'] = false;
             $compatibility['checks'][] = 'Recipient not waiting for transplant';
         }
-        
-        // Blood type compatibility (basic check)
+
         if ($donor->blood_type && $recipient->blood_type) {
             $bloodCompatible = $this->checkBloodTypeCompatibility($donor->blood_type, $recipient->blood_type);
             $compatibility['checks'][] = 'Blood type: ' . ($bloodCompatible ? 'Compatible' : 'Incompatible');
@@ -96,8 +95,7 @@ class MatchingController extends Controller
                 $compatibility['isCompatible'] = false;
             }
         }
-        
-        // Age compatibility (donor should be within reasonable age range)
+
         if ($donor->age && $recipient->age) {
             $ageDiff = abs($donor->age - $recipient->age);
             $compatibility['checks'][] = 'Age difference: ' . $ageDiff . ' years';
@@ -105,19 +103,17 @@ class MatchingController extends Controller
                 $compatibility['checks'][] = 'Large age difference may affect compatibility';
             }
         }
-        
-        // Size compatibility (basic check)
+
         if ($donor->organ_size && $recipient->height && $donor->height) {
             $sizeCompatible = $this->checkSizeCompatibility($donor, $recipient);
             $compatibility['checks'][] = 'Size: ' . ($sizeCompatible ? 'Compatible' : 'May need size adjustment');
         }
-        
+
         return $compatibility;
     }
-    
+
     private function checkBloodTypeCompatibility($donorBlood, $recipientBlood)
     {
-        // Basic blood type compatibility rules
         $compatibility = [
             'A+' => ['A+', 'AB+'],
             'A-' => ['A-', 'AB-'],
@@ -128,24 +124,23 @@ class MatchingController extends Controller
             'O+' => ['A+', 'B+', 'AB+', 'O+'],
             'O-' => ['A-', 'B-', 'AB-', 'O-']
         ];
-        
+
         return in_array($recipientBlood, $compatibility[$donorBlood] ?? []);
     }
-    
+
     private function checkSizeCompatibility($donor, $recipient)
     {
-        // Basic size compatibility check
         $donorHeight = $donor->height ?? 0;
         $recipientHeight = $recipient->height ?? 0;
-        
+
         if ($donorHeight > 0 && $recipientHeight > 0) {
             $heightDiff = abs($donorHeight - $recipientHeight);
-            return $heightDiff <= 20; // Within 20cm difference
+            return $heightDiff <= 20;
         }
-        
-        return true; // If we can't determine, assume compatible
+
+        return true;
     }
-    
+
     private function calculateMatchScore($donor, $recipient, &$pointsBreakdown = null)
     {
         $score = 0;
@@ -156,7 +151,6 @@ class MatchingController extends Controller
             'urgency' => ['label' => 'Urgency', 'points' => 0, 'max' => 35, 'desc' => ''],
         ];
 
-        // Waiting time (recipient->waiting_time in months)
         if (isset($recipient->waiting_time)) {
             $months = (int) $recipient->waiting_time;
             if ($months < 12) {
@@ -174,7 +168,6 @@ class MatchingController extends Controller
             }
         }
 
-        // Age (recipient->age)
         if (isset($recipient->age)) {
             $age = (int) $recipient->age;
             if ($age < 18) {
@@ -187,7 +180,6 @@ class MatchingController extends Controller
             }
         }
 
-        // Blood type compatibility (25 points)
         if ($donor->blood_type && $recipient->blood_type) {
             if ($this->checkBloodTypeCompatibility($donor->blood_type, $recipient->blood_type)) {
                 $score += 25;
@@ -198,7 +190,6 @@ class MatchingController extends Controller
             }
         }
 
-        // Medical urgency (Low=10, Medium=20, High=30, Critical=35)
         if (isset($recipient->medical_urgency_score)) {
             $urgency = strtolower($recipient->medical_urgency_score);
             if ($urgency === 'low') {
@@ -224,4 +215,4 @@ class MatchingController extends Controller
 
         return $score;
     }
-} 
+}
