@@ -24,7 +24,13 @@ class DonorController extends Controller
         $archive = Donor::where('register_outside_inside', 'Archive')->get();
         return view('donors.index_archive', compact('archive'));
     }
+    public function archive(Donor $donor)
+    {
+        // Update the 'register_outside_inside' field to 'Archive'
+        $donor->update(['register_outside_inside' => 'Archive']);
 
+        return response()->json(['success' => true]);
+    }
     /**
      * Show donor registration form (optional if you're using a modal).
      */

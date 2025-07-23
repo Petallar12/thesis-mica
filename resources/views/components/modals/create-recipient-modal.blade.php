@@ -96,6 +96,12 @@
                                     <option value="Inactive">Inactive</option>
                                 </select>
                             </div>
+                            <div class="input-group">
+                                <label>Registered Where</label>
+                                <select name="register_outside_inside" required>
+                                    <option value="Inside">Inside</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 

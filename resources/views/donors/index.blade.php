@@ -69,13 +69,16 @@
                             <a href="{{ route('donors.edit', $donor->id) }}" class="actionBtn" title="Edit Donor">
                                 <i class="fa-solid fa-square-pen"></i>
                             </a>
-                            <form class="inline delete-form">
+                            {{-- <form class="inline delete-form">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" class="actionBtn delete-donor-btn" data-id="{{ $donor->id }}" title="Delete Donor">
                                     <i class="fa-solid fa-circle-minus"></i>
                                 </button>
-                            </form>
+                            </form> --}}
+                                    <button type="button" class="actionBtn archive-donor-btn" data-id="{{ $donor->id }}" title="Archive Donor">
+            <i class="fa-solid fa-archive"></i>
+        </button>
                             @endif
                         </td>
                     </tr>
@@ -461,5 +464,53 @@
                 });
             });
         });
+
+
+        // transfer donor to archive
+        $(document).on('click', '.archive-donor-btn', function(e) {
+    e.preventDefault();
+    const donorId = $(this).data('id');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Are you sure you want to archive this donor? This action cannot be undone!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, archive it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `/donors/${donorId}/archive`,  // New route to handle archiving
+                type: 'POST',
+                data: { _token: $('meta[name="csrf-token"]').attr('content') },
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire(
+                            'Archived!',
+                            'Donor has been archived.',
+                            'success'
+                        ).then(() => location.reload());  // Reload the page to see the changes
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'Failed to archive donor.',
+                            'error'
+                        );
+                    }
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire(
+                        'Error!',
+                        'An error occurred. Please try again.',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+});
+
     </script>
 </x-app-layout>

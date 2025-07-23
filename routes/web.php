@@ -58,5 +58,8 @@ Route::get('/archive', [DonorController::class, 'index_archive'])->name('donors.
 Route::get('/archive_recipient', [RecipientController::class, 'index_archive'])->name('recipient.index_archive');
 Route::get('/donor-card/{donor}/edit', [DonorCardController::class, 'edit'])->name('donor-card.edit');
 Route::post('/donor-card/{donor}', [DonorCardController::class, 'update'])->name('donor-card.update');
+Route::post('/donors/{donor}/archive', [DonorController::class, 'archive'])->name('donors.archive');
+Route::post('/recipients/{recipient}/archive', [RecipientController::class, 'archive'])->name('recipients.archive');
+
 
 require __DIR__.'/auth.php';

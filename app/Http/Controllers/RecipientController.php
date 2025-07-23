@@ -11,7 +11,7 @@ class RecipientController extends Controller
 {
     public function index()
     {
-        $recipients = Recipients::all();
+        $recipients = Recipients::where('register_outside_inside', 'Inside')->get();
         return view('recipient.index', compact('recipients'));
     }
 
@@ -20,6 +20,14 @@ class RecipientController extends Controller
         $archive = Recipients::where('register_outside_inside', 'Archive')->get();
         return view('recipient.index_archive', compact('archive'));
     }
+
+public function archive(Recipients $recipient)
+    {
+        // Update the 'register_outside_inside' field to 'Archive'
+        $recipient->update(['register_outside_inside' => 'Archive']);
+
+        return response()->json(['success' => true]);
+    }   
 
     public function store(Request $request)
     {
