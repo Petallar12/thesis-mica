@@ -63,6 +63,7 @@ class Recipients extends Model
             'donation_preferences',
             'status',
             'encoded_by',
-            'encoded_date'
+            'encoded_date',
+            'register_outside_inside'
     ];
 }

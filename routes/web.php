@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/schedules', [DashboardController::class, 'schedules'])->name('schedules');
 
 Route::get('/donor-card', [DonorCardController::class, 'index'])->name('donor-card.index');
+Route::get('/archive', [DonorController::class, 'index_archive'])->name('donors.index_archive');
+Route::get('/archive_recipient', [RecipientController::class, 'index_archive'])->name('recipient.index_archive');
 Route::get('/donor-card/{donor}/edit', [DonorCardController::class, 'edit'])->name('donor-card.edit');
 Route::post('/donor-card/{donor}', [DonorCardController::class, 'update'])->name('donor-card.update');
 

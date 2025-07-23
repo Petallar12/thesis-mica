@@ -19,6 +19,11 @@ class DonorController extends Controller
         $donors = Donor::where('register_outside_inside', 'Inside')->get();
         return view('donors.index', compact('donors'));
     }
+    public function index_archive()
+    {
+        $archive = Donor::where('register_outside_inside', 'Archive')->get();
+        return view('donors.index_archive', compact('archive'));
+    }
 
     /**
      * Show donor registration form (optional if you're using a modal).

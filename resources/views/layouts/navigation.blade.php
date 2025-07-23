@@ -34,6 +34,12 @@
                             <x-dropdown-link :href="route('donors.index')">
                                 {{ __('Donors') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('donors.index_archive')">
+                                {{ __('Donor Archive') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('recipient.index_archive')">
+                                {{ __('Recipients Archive List') }}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('recipients.index')">
                                 {{ __('Recipients') }}
                             </x-dropdown-link>

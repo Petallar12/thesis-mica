@@ -15,6 +15,12 @@ class RecipientController extends Controller
         return view('recipient.index', compact('recipients'));
     }
 
+    public function index_archive()
+    {
+        $archive = Recipients::where('register_outside_inside', 'Archive')->get();
+        return view('recipient.index_archive', compact('archive'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
