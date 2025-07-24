@@ -65,6 +65,15 @@
                     </x-nav-link>
                 </div>
 
+                <!-- points Links -->
+                @if(auth()->user()->role === 'SuperAdmin')
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('matching.settings')" :active="request()->routeIs('matching.settings')">
+                        {{ __('Points') }}
+                    </x-nav-link>
+                </div>
+                @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('schedules')" :active="request()->routeIs('schedules')">
                         {{ __('Schedules') }}

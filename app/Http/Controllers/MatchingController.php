@@ -141,78 +141,132 @@ class MatchingController extends Controller
         return true;
     }
 
-    private function calculateMatchScore($donor, $recipient, &$pointsBreakdown = null)
-    {
-        $score = 0;
-        $pointsBreakdown = [
-            'waiting_time' => ['label' => 'Waiting Time', 'points' => 0, 'max' => 30, 'desc' => ''],
-            'age' => ['label' => 'Age', 'points' => 0, 'max' => 10, 'desc' => ''],
-            'blood_type' => ['label' => 'Blood Type', 'points' => 0, 'max' => 25, 'desc' => ''],
-            'urgency' => ['label' => 'Urgency', 'points' => 0, 'max' => 35, 'desc' => ''],
-        ];
+ private function calculateMatchScore($donor, $recipient, &$pointsBreakdown = null)
+{
+    // Get points from the database (MatchingPoint model)
+    $points = \App\Models\MatchingPoint::first(); 
 
-        if (isset($recipient->waiting_time)) {
-            $months = (int) $recipient->waiting_time;
-            if ($months < 12) {
-                $score += 10;
-                $pointsBreakdown['waiting_time']['points'] = 10;
-                $pointsBreakdown['waiting_time']['desc'] = "$months months (<12)";
-            } elseif ($months >= 12 && $months < 36) {
-                $score += 20;
-                $pointsBreakdown['waiting_time']['points'] = 20;
-                $pointsBreakdown['waiting_time']['desc'] = "$months months (12-35)";
-            } elseif ($months >= 36) {
-                $score += 30;
-                $pointsBreakdown['waiting_time']['points'] = 30;
-                $pointsBreakdown['waiting_time']['desc'] = "$months months (36+)";
-            }
+    $score = 0;
+
+    $pointsBreakdown = [
+        'waiting_time' => [
+            'label' => 'Waiting Time',
+            'points' => 0,
+            'max' => $points->waiting_time_max,  // Use dynamic max value from DB
+            'desc' => '',
+        ],
+        'age' => [
+            'label' => 'Age',
+            'points' => 0,
+            'max' => $points->age_max,  // Use dynamic max value from DB
+            'desc' => '',
+        ],
+        'blood_type' => [
+            'label' => 'Blood Type',
+            'points' => 0,
+            'max' => $points->blood_type_max,  // Use dynamic max value from DB
+            'desc' => '',
+        ],
+        'urgency' => [
+            'label' => 'Urgency',
+            'points' => 0,
+            'max' => $points->urgency_max,  // Use dynamic max value from DB
+            'desc' => '',
+        ],
+    ];
+
+    // Adjust points based on config settings (from database)
+    if (isset($recipient->waiting_time)) {
+        $months = (int) $recipient->waiting_time;
+        if ($months < 12) {
+            $score += $points->waiting_time_less_than_12;
+            $pointsBreakdown['waiting_time']['points'] = $points->waiting_time_less_than_12;
+            $pointsBreakdown['waiting_time']['desc'] = "$months months (<12)";
+        } elseif ($months >= 12 && $months < 36) {
+            $score += $points->waiting_time_12_to_35;
+            $pointsBreakdown['waiting_time']['points'] = $points->waiting_time_12_to_35;
+            $pointsBreakdown['waiting_time']['desc'] = "$months months (12-35)";
+        } elseif ($months >= 36) {
+            $score += $points->waiting_time_more_than_36;
+            $pointsBreakdown['waiting_time']['points'] = $points->waiting_time_more_than_36;
+            $pointsBreakdown['waiting_time']['desc'] = "$months months (36+)";
         }
-
-        if (isset($recipient->age)) {
-            $age = (int) $recipient->age;
-            if ($age < 18) {
-                $pointsBreakdown['age']['points'] = 0;
-                $pointsBreakdown['age']['desc'] = "$age years (<18)";
-            } elseif ($age >= 18) {
-                $score += 10;
-                $pointsBreakdown['age']['points'] = 10;
-                $pointsBreakdown['age']['desc'] = "$age years (18+)";
-            }
-        }
-
-        if ($donor->blood_type && $recipient->blood_type) {
-            if ($this->checkBloodTypeCompatibility($donor->blood_type, $recipient->blood_type)) {
-                $score += 25;
-                $pointsBreakdown['blood_type']['points'] = 25;
-                $pointsBreakdown['blood_type']['desc'] = 'Compatible';
-            } else {
-                $pointsBreakdown['blood_type']['desc'] = 'Incompatible';
-            }
-        }
-
-        if (isset($recipient->medical_urgency_score)) {
-            $urgency = strtolower($recipient->medical_urgency_score);
-            if ($urgency === 'low') {
-                $score += 10;
-                $pointsBreakdown['urgency']['points'] = 10;
-                $pointsBreakdown['urgency']['desc'] = 'Low';
-            } elseif ($urgency === 'medium') {
-                $score += 20;
-                $pointsBreakdown['urgency']['points'] = 20;
-                $pointsBreakdown['urgency']['desc'] = 'Medium';
-            } elseif ($urgency === 'high') {
-                $score += 30;
-                $pointsBreakdown['urgency']['points'] = 30;
-                $pointsBreakdown['urgency']['desc'] = 'High';
-            } elseif ($urgency === 'critical') {
-                $score += 35;
-                $pointsBreakdown['urgency']['points'] = 35;
-                $pointsBreakdown['urgency']['desc'] = 'Critical';
-            } else {
-                $pointsBreakdown['urgency']['desc'] = ucfirst($urgency);
-            }
-        }
-
-        return $score;
     }
+
+    // Age scoring
+    if (isset($recipient->age)) {
+        $age = (int) $recipient->age;
+        if ($age < 18) {
+            $pointsBreakdown['age']['points'] = 0;
+            $pointsBreakdown['age']['desc'] = "$age years (<18)";
+        } elseif ($age >= 18) {
+            $score += $points->age_more_than_18;
+            $pointsBreakdown['age']['points'] = $points->age_more_than_18;
+            $pointsBreakdown['age']['desc'] = "$age years (18+)";
+        }
+    }
+
+    // Blood type scoring
+    if ($donor->blood_type && $recipient->blood_type) {
+        if ($this->checkBloodTypeCompatibility($donor->blood_type, $recipient->blood_type)) {
+            $score += $points->blood_type;
+            $pointsBreakdown['blood_type']['points'] = $points->blood_type;
+            $pointsBreakdown['blood_type']['desc'] = 'Compatible';
+        } else {
+            $pointsBreakdown['blood_type']['desc'] = 'Incompatible';
+        }
+    }
+
+    // Urgency scoring
+    if (isset($recipient->medical_urgency_score)) {
+        $urgency = strtolower($recipient->medical_urgency_score);
+        $score += $points->{"urgency_$urgency"};  // Dynamically get the point value based on urgency
+        $pointsBreakdown['urgency']['points'] = $points->{"urgency_$urgency"};
+        $pointsBreakdown['urgency']['desc'] = ucfirst($urgency);
+    }
+
+    return $score;
+}
+
+public function updateSettings(Request $request)
+{
+    $points = \App\Models\MatchingPoint::first();
+    
+    // Validate the input
+    $request->validate([
+        'waiting_time_less_than_12' => 'required|integer',
+        'waiting_time_12_to_35' => 'required|integer',
+        'waiting_time_more_than_36' => 'required|integer',
+        'age_less_than_18' => 'required|integer',
+        'age_more_than_18' => 'required|integer',
+        'blood_type' => 'required|integer',
+        'urgency_low' => 'required|integer',
+        'urgency_medium' => 'required|integer',
+        'urgency_high' => 'required|integer',
+        'urgency_critical' => 'required|integer',
+    ]);
+    
+    // Update the points in the DB
+    $points->update($request->all());
+
+    return redirect()->route('matching.settings')->with('success', 'Settings updated!');
+}
+
+public function showSettings()
+{
+    // Get the first record from the MatchingPoint table
+    $points = \App\Models\MatchingPoint::first(); 
+
+    // Check if the record is null and handle accordingly
+    if (!$points) {
+        // You can return an error message or create default points
+        return redirect()->route('matching.settings')->with('error', 'No points data found!');
+    }
+
+    // Return the view and pass the points data
+    return view('matching.settings', compact('points'));
+}
+
+
+
 }

@@ -94,10 +94,10 @@
 
                                             <h6 class="mt-2">Compatibility Checks:</h6>
                                             <ul class="list-unstyled small">
-                                                <li><strong>Waiting Time:</strong> {{ $match['pointsBreakdown']['waiting_time']['desc'] ?? 'N/A' }} <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['waiting_time']['points'] }}/{{ $match['pointsBreakdown']['waiting_time']['max'] }} pts</span></li>
-                                                <li><strong>Age:</strong> {{ $match['pointsBreakdown']['age']['desc'] ?? 'N/A' }} <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['age']['points'] }}/{{ $match['pointsBreakdown']['age']['max'] }} pts</span></li>
-                                                <li><strong>Blood Type:</strong> {{ $match['pointsBreakdown']['blood_type']['desc'] ?? 'N/A' }} <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['blood_type']['points'] }}/{{ $match['pointsBreakdown']['blood_type']['max'] }} pts</span></li>
-                                                <li><strong>Urgency:</strong> {{ $match['pointsBreakdown']['urgency']['desc'] ?? 'N/A' }} <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['urgency']['points'] }}/{{ $match['pointsBreakdown']['urgency']['max'] }} pts</span></li>
+                                                <li><strong>Waiting Time:</strong> {{ $match['pointsBreakdown']['waiting_time']['desc'] ?? 'N/A' }} <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['waiting_time']['points'] }}{{ $match['pointsBreakdown']['waiting_time']['max'] }} pts</span></li>
+                                                <li><strong>Age:</strong> {{ $match['pointsBreakdown']['age']['desc'] ?? 'N/A' }} <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['age']['points'] }}{{ $match['pointsBreakdown']['age']['max'] }} pts</span></li>
+                                                <li><strong>Blood Type:</strong> {{ $match['pointsBreakdown']['blood_type']['desc'] ?? 'N/A' }} <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['blood_type']['points'] }}{{ $match['pointsBreakdown']['blood_type']['max'] }} pts</span></li>
+                                                <li><strong>Urgency:</strong> {{ $match['pointsBreakdown']['urgency']['desc'] ?? 'N/A' }} <span class="badge bg-secondary ms-2">{{ $match['pointsBreakdown']['urgency']['points'] }}{{ $match['pointsBreakdown']['urgency']['max'] }} pts</span></li>
                                             </ul>
                                             <div class="small">
                                                 @foreach($match['compatibility']['checks'] as $check)

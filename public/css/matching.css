@@ -1,0 +1,57 @@
+.container-index {
+    border-radius: 8px;
+    padding: 20px 10px;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 0px;
+    /* background-color:#9c0f3f; */
+    border: none;
+    overflow: hidden;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;  /* Ensures the table doesn't stretch beyond the container */
+        border-radius: 5px;
+
+}
+
+
+/* Table headers */
+th {
+    font-size: 15px !important;
+    margin: 12px 15px 12px 15px !important;
+    background-color: #9c0f3f !important;
+    color: white;
+    border-bottom: 2px var(--white) solid !important;
+    text-align: center !important;
+    vertical-align: middle !important; /* Ensures text is centered vertically */
+    text-transform: uppercase;
+    border: 1px solid #ffffff;
+}
+/* 
+td {
+    font-size: 14px !important; 
+    padding: 10px 15px !important;
+    border: 1px white solid;
+    width: 25%;
+    text-align: center !important;
+} */
+
+/* Button styling */
+button[type="submit"] {
+    background-color: #9c0f3f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #7a0d32; /* Darker shade on hover */
+}
+/* Input field styling */
+input.form-control {
+    text-align: center !important; /* Centers the text inside the input field */
+}

@@ -63,6 +63,9 @@ Route::post('/recipients/{recipient}/archive', [RecipientController::class, 'arc
 Route::post('/donors/{donor}/set-inside', [DonorController::class, 'setInside'])->name('donors.setInside');
 Route::post('/recipients/{recipient}/set-inside', [RecipientController::class, 'setInside'])->name('recipients.setInside');
 
+Route::get('/matching/settings', [MatchingController::class, 'showSettings'])->name('matching.settings');
+Route::post('/matching/settings', [MatchingController::class, 'updateSettings'])->name('matching.updateSettings');
+
 
 
 require __DIR__.'/auth.php';
