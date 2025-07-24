@@ -169,15 +169,17 @@
                                     <option value="Cancelled">Cancelled</option>
                                 </select>
                             </div>
+                             <div class="input-group"><label>Date and Time Of Death</label><input type="datetime-local" name="donor_card_registration_date" /></div>
+                            
                         </div>
                     </div>
 
                     <div id="edit-system-information" class="tab-content">
                         <div class="form-group grid grid-cols-2 gap-4">
-                            <div class="input-group"><label>Donor Card Registration Date</label><input type="date" name="donor_card_registration_date" /></div>
-                            <div class="input-group"><label>Registration Method</label><input type="text" name="registration_method" /></div>
-                            <div class="input-group"><label>Notification Set to Family</label><input type="text" name="notification_set_to_family" /></div>
-                            <div class="input-group"><label>Donor Card QR Code</label><input type="text" name="donor_card_qr_code" /></div>
+                           <div class="input-group"><label>Remarks</label><input type="text" name="registration_method" /></div>
+
+                           {{-- <div class="input-group"><label>Notification Set to Family</label><input type="text" name="notification_set_to_family" /></div> --}}
+                            {{-- <div class="input-group"><label>Donor Card QR Code</label><input type="text" name="donor_card_qr_code" /></div> --}}
                         </div>
                     </div>
 

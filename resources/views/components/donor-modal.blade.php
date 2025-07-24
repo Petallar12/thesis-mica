@@ -180,7 +180,7 @@
                           <option value="Parent">Parent</option>
                           <option value="Sibling">Sibling</option>
                           <option value="Child">Child</option>
-                          <option value="Friend">Friend</option>
+                          <option value="Spouse ">Spouse </option>
                       </select>
                   </div>
                   <div class="input-group"><label>Kin Contact Number</label><input type="text" name="kin_contact_number" /></div>

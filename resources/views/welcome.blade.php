@@ -19,7 +19,7 @@
       <img src="images/logo.png" alt="Logo" />
     </div>
     <nav>
-      <button class="contact-btn">Contact</button>
+      {{-- <button class="contact-btn">Contact</button> --}}
       <button class="register-btn">Register Now</button>
     </nav>
   </header>
@@ -41,7 +41,7 @@
         <p>Every day, individuals across the world are waiting for a life-saving organ. The heartbreaking truth is that many won’t get the call in time. 
           But you have the power to change that. By registering as an organ donor, you can offer the gift of life. Your selfless decision could mean a 
           second chance for someone’s father, daughter, or friend. Donating organs saves lives and changes families forever.</p>
-        <button class="cta">CTA</button>
+        {{-- <button class="cta">CTA</button> --}}
       </div>
     </div>
 
@@ -55,7 +55,7 @@
         <p>Thousands of people are waiting for the organ transplant that could save their life. Sadly, only a few get that chance. 
           But you can help change the odds. Organ donation is a simple act with an immeasurable impact. Your decision to donate could mean the difference 
           between life and death for someone in need. By becoming an organ donor, you become a hero to someone who may never have had the chance.</p>
-        <button class="cta">CTA</button>
+        {{-- <button class="cta">CTA</button> --}}
       </div>
     </div>
   </section>

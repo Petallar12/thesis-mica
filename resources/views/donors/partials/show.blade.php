@@ -22,9 +22,9 @@
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="system-tab" data-bs-toggle="tab" data-bs-target="#system" type="button" role="tab">System Information</button>
     </li>
-    <li class="nav-item" role="presentation">
+    {{-- <li class="nav-item" role="presentation">
         <button class="nav-link" id="others-tab" data-bs-toggle="tab" data-bs-target="#others" type="button" role="tab">Others</button>
-    </li>
+    </li> --}}
 </ul>
 <div class="tab-content" id="donorTabsContent">
     <div class="tab-pane fade show active" id="personal" role="tabpanel">
@@ -85,20 +85,21 @@
                 <tr><th class="th_modal">Condition of Organs</th><td class="td_modal">{{ $donor->condition_of_organs }}</td></tr>
                 <tr><th class="th_modal">Organ Compatibility</th><td class="td_modal">{{ $donor->organ_compability }}</td></tr>
                 <tr><th class="th_modal">Organ Recovery Team</th><td class="td_modal">{{ $donor->organ_recovery_team }}</td></tr>
+                <tr><th class="th_modal">Date and Time of Death</th><td class="td_modal">{{ $donor->donor_card_registration_date }}</td></tr>
+
             </tbody>
         </table>
     </div>
     <div class="tab-pane fade" id="system" role="tabpanel">
         <table class="table table-bordered">
             <tbody>
-                <tr><th class="th_modal">Donor Card Registration Date</th><td class="td_modal">{{ $donor->donor_card_registration_date }}</td></tr>
-                <tr><th class="th_modal">Registration Method</th><td class="td_modal">{{ $donor->registration_method }}</td></tr>
+                <tr><th class="th_modal">Remarks</th><td class="td_modal">{{ $donor->registration_method }}</td></tr>
                 <tr><th class="th_modal">Notification Set to Family</th><td class="td_modal">{{ $donor->notification_set_to_family }}</td></tr>
                 <tr><th class="th_modal">Donor Card QR Code</th><td class="td_modal">{{ $donor->donor_card_qr_code }}</td></tr>
             </tbody>
         </table>
     </div>
-    <div class="tab-pane fade" id="others" role="tabpanel">
+    {{-- <div class="tab-pane fade" id="others" role="tabpanel">
         <table class="table table-bordered">
             <tbody>
                 <tr><th class="th_modal">Donation Type</th><td class="td_modal">{{ $donor->donation_type }}</td></tr>
@@ -112,6 +113,6 @@
                 <tr><th class="th_modal">Encoded Date</th><td class="td_modal">{{ $donor->encoded_date }}</td></tr>
             </tbody>
         </table>
-    </div>
+    </div> --}}
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

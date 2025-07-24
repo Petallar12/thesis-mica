@@ -96,13 +96,14 @@
                             $('#organDetailsContent').html('<p class="text-center">No details found for this organ type.</p>');
                             return;
                         }
-                        var html = '<table class="table table-bordered"><thead><tr><th>Organ Size</th><th>Blood Type</th><th>Organ Status</th><th>Brain Death Confirmation</th></tr></thead><tbody>';
+                        var html = '<table class="table table-bordered"><thead><tr><th>Organ Size</th><th>Blood Type</th><th>Organ Viability Status</th><th>Brain Death Confirmation</th><th>Date and Time of Death</th></tr></thead><tbody>';
                         data.forEach(function(row) {
                             html += '<tr>' +
                                 '<td>' + (row.organ_size || 'N/A') + '</td>' +
                                 '<td>' + (row.blood_type || 'N/A') + '</td>' +
                                 '<td>' + (row.organ_viability_status || 'N/A') + '</td>' +
                                 '<td>' + (row.brain_death_confirmation || 'N/A') + '</td>' +
+                                '<td>' + (row.donor_card_registration_date || 'N/A') + '</td>' +
                                 '</tr>';
                         });
                         html += '</tbody></table>';

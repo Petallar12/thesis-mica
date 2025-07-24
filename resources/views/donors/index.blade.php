@@ -361,11 +361,11 @@
                     'Middle Name', 
                     'Last Name', 
                     'Age', 
-                    'Donation Preferences',
+                    // 'Donation Preferences',
                     'Government ID Number',
                     'Gender',
-                    'Status',
-                    'Encoded Date'
+                    'Status'
+                    // 'Encoded Date'
                 ];
                 const kinFields = [
                     'Kin Full Name',
@@ -393,12 +393,13 @@
                     'Condition of Organs',
                     'Organ Compatibility',
                     'Organ Recovery Team',
-                    'Transplant Status'
+                    'Transplant Status',
+                    'Date and Time Of Death'
+
                 ];
 
                 const systemFields = [
-                    'Donor Card Registration Date',
-                    'Registration Method',
+                    'Remarks',
                     'Notification Set to Family',
                     'Donor Card QR Code'
                 ];
