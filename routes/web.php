@@ -66,6 +66,22 @@ Route::post('/recipients/{recipient}/set-inside', [RecipientController::class, '
 Route::get('/matching/settings', [MatchingController::class, 'showSettings'])->name('matching.settings');
 Route::post('/matching/settings', [MatchingController::class, 'updateSettings'])->name('matching.updateSettings');
 
+// In routes/web.php
+
+Route::post('/donors/archive', function(Request $request) {
+    $donorId = $request->input('donor_id');  // Make sure the donor ID is received
+    $donor = App\Models\Donor::find($donorId);  // Retrieve the donor by ID
+
+    if ($donor) {
+        // Update the donor's register_outside_inside to 'Archive'
+        $donor->register_outside_inside = 'Archive';
+        $donor->save();  // Save the updated donor
+
+        return response()->json(['success' => true, 'message' => 'Donor archived successfully.']);
+    }
+
+    return response()->json(['success' => false, 'message' => 'Donor not found.']);
+})->name('donors.archive');
 
 
 require __DIR__.'/auth.php';

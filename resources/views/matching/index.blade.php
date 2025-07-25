@@ -1,4 +1,6 @@
 <x-app-layout>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="header-title font-semibold text-gray-700">Donor-Recipient Matching</h2>
@@ -23,7 +25,12 @@
                                 <h6 class="text-primary mb-3">
                                     <i class="fas fa-heart text-danger me-2"></i>Donor
                                 </h6>
-                                <div class="mb-2"><strong>Name:</strong> {{ $donor->first_name }} {{ $donor->last_name }}</div>
+                                <div class="mb-2"><strong>Name:</strong> {{ $donor->first_name }} {{ $donor->last_name }}
+                                 <!-- Archive Button -->
+                                <button type="button" class="actionBtn archive-donor-btn" archive-donor-btn" data-id="{{ $donor->id }}" title="Archive Donor" style="margin-left: 15px;">
+                                    <i class="fa-solid fa-archive"></i>
+                                </button>
+                                </div>
                                 <div class="mb-2"><strong>Age:</strong> {{ $donor->age ?? 'N/A' }} years</div>
                                 
                                 <!-- Blood Type with color -->
@@ -39,6 +46,19 @@
                                     <strong>Donor Status:</strong>
                                     <span class="badge bg-{{ $donor->donor_status === 'Alive' ? 'success' : ($donor->donor_status === 'Deceased' ? 'danger' : 'warning') }}">
                                         {{ $donor->donor_status ?? 'N/A' }}
+                                    </span>
+                                </div>
+
+                                {{-- Time Retrieval with AM/PM --}}
+                                <div class="mb-2">
+                                    <strong>Time Retrieval:</strong> 
+                                    {{ \Carbon\Carbon::parse($donor->retrieval_time)->format('Y-m-d h:i A') }}
+                                </div>
+
+                                <div class="mb-2">
+                                    <strong>Organ Condition:</strong> 
+                                    <span class="badge bg-{{ $donor->organ_condition === 'Expired' ? 'danger' : 'success' }}">
+                                        {{ $donor->organ_condition === 'Expired' ? 'Expired' : 'Good' }}  <!-- Display 'Expired' explicitly when it's expired -->
                                     </span>
                                 </div>
                             </div>
@@ -124,4 +144,61 @@
     <!-- Bootstrap JS and Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+  $(document).on('click', '.archive-donor-btn', function(e) {
+    e.preventDefault();
+    const donorId = $(this).data('id');
+
+    console.log('Button clicked for donor ID: ' + donorId);  // Debugging log to ensure click is being registered
+
+    // Confirm the archive action with SweetAlert
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Are you sure you want to archive this donor? This action cannot be undone!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, archive it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Send AJAX request to update the donor to archive
+            $.ajax({
+                url: '/donors/' + donorId + '/archive',  // Ensure the URL is correct
+                type: 'POST',
+                data: { 
+                    _token: $('meta[name="csrf-token"]').attr('content'),  // Ensure CSRF token is included
+                    donor_id: donorId  // Pass donor ID for the archive action
+                },
+                success: function(response) {
+                    console.log(response);  // Log response for debugging
+                    if (response.success) {
+                        Swal.fire(
+                            'Archived!',
+                            'Donor has been archived.',
+                            'success'
+                        ).then(() => location.reload());  // Reload the page to see updated donor list
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'Failed to archive donor.',
+                            'error'
+                        );
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', xhr, status, error);  // Log any AJAX errors
+                    Swal.fire(
+                        'Error!',
+                        'An error occurred. Please try again.',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+});
+
+
+    </script>
 </x-app-layout>

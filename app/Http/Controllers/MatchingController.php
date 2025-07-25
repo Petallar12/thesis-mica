@@ -5,72 +5,128 @@ namespace App\Http\Controllers;
 use App\Models\Donor;
 use App\Models\Recipients;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;  // Importing Log facade for logging
 class MatchingController extends Controller
 {
-    public function index()
-    {
-        // Get all donors and recipients
-        $donors = Donor::all();
-        $recipients = Recipients::all();
+public function index()
+{
+    // Get all donors and recipients
+    $donors = Donor::all();
+    $recipients = Recipients::all();
 
-        // Group donors and recipients by organ
-        $donorsByOrgan = $donors->groupBy('organ_needed');
-        $recipientsByOrgan = $recipients->groupBy('organ_needed');
+    // Group donors and recipients by organ
+    $donorsByOrgan = $donors->groupBy('organ_needed');
+    $recipientsByOrgan = $recipients->groupBy('organ_needed');
 
-        // Create matches grouped by donor
-        $matches = [];
+    $matches = [];
 
-        foreach ($donorsByOrgan as $organ => $donorsGroup) {
-            if (isset($recipientsByOrgan[$organ])) {
-                $recipientsGroup = $recipientsByOrgan[$organ];
+    foreach ($donorsByOrgan as $organ => $donorsGroup) {
+        if (isset($recipientsByOrgan[$organ])) {
+            $recipientsGroup = $recipientsByOrgan[$organ];
 
-                foreach ($donorsGroup as $donor) {
-                    $donorMatches = [];
+            foreach ($donorsGroup as $donor) {
+                // Calculate the organ condition based on retrieval time
+                $donor->organ_condition = $this->calculateOrganCondition($donor);
+                
+                // You can still include expired organs but they will have 'Expired' label
+                // Skip matching if the organ condition is expired (optional based on your requirement)
+                if ($donor->organ_condition === 'Expired') {
+                    // Optionally, you can continue to the next donor
+                    // continue;  
+                }
 
-                    foreach ($recipientsGroup as $recipient) {
-                        if (
-                            $donor->blood_type === $recipient->blood_type &&
-                            $donor->register_outside_inside === 'Inside' &&
-                            $recipient->register_outside_inside === 'Inside' &&
-                            $donor->status === 'Active' &&
-                            $recipient->status === 'Active' &&
-                            $donor->transplant_status === 'Waiting' &&
-                            $recipient->transplant_status === 'Waiting'
-                        ) {
-                            $compatibility = $this->checkCompatibility($donor, $recipient);
-                            $pointsBreakdown = [];
-                            $matchScore = $this->calculateMatchScore($donor, $recipient, $pointsBreakdown);
+                $donorMatches = [];
 
-                            $donorMatches[] = [
-                                'donor' => $donor,
-                                'recipient' => $recipient,
-                                'organ' => $organ,
-                                'compatibility' => $compatibility,
-                                'matchScore' => $matchScore,
-                                'pointsBreakdown' => $pointsBreakdown
-                            ];
-                        }
-                    }
+                foreach ($recipientsGroup as $recipient) {
+                    if (
+                        $donor->blood_type === $recipient->blood_type &&
+                        $donor->register_outside_inside === 'Inside' &&
+                        $recipient->register_outside_inside === 'Inside' &&
+                        $donor->status === 'Active' &&
+                        $recipient->status === 'Active' &&
+                        $donor->transplant_status === 'Waiting' &&
+                        $recipient->transplant_status === 'Waiting'
+                    ) {
+                        $compatibility = $this->checkCompatibility($donor, $recipient);
+                        $pointsBreakdown = [];
+                        $matchScore = $this->calculateMatchScore($donor, $recipient, $pointsBreakdown);
 
-                    if (!empty($donorMatches)) {
-                        usort($donorMatches, function ($a, $b) {
-                            return $b['matchScore'] <=> $a['matchScore'];
-                        });
-
-                        $matches[$donor->id] = [
+                        $donorMatches[] = [
                             'donor' => $donor,
+                            'recipient' => $recipient,
                             'organ' => $organ,
-                            'recipient_matches' => $donorMatches
+                            'compatibility' => $compatibility,
+                            'matchScore' => $matchScore,
+                            'pointsBreakdown' => $pointsBreakdown
                         ];
                     }
                 }
+
+                if (!empty($donorMatches)) {
+                    usort($donorMatches, function ($a, $b) {
+                        return $b['matchScore'] <=> $a['matchScore'];
+                    });
+
+                    $matches[$donor->id] = [
+                        'donor' => $donor,
+                        'organ' => $organ,
+                        'recipient_matches' => $donorMatches
+                    ];
+                }
             }
         }
-
-        return view('matching.index', compact('matches'));
     }
 
+    return view('matching.index', compact('matches'));
+}
+
+
+private function calculateOrganCondition($donor)
+{
+    if (!$donor->retrieval_time) {
+        return 'Unknown';  // If retrieval time is missing
+    }
+
+    $retrievalTime = Carbon::parse($donor->retrieval_time);
+    $currentTime = Carbon::now();
+
+    // Define organ viability periods in hours
+    $viabilityPeriods = [
+        'Heart' => 6,
+        'Lungs' => 6,
+        'Eyes' => 6,
+        'Corneas' => 6,  // Add Corneas if necessary
+        'Liver' => 12,
+        'Pancreas' => 12,
+        'Kidneys' => 36,
+    ];
+
+    $organ = $donor->organ_needed;
+
+    if (isset($viabilityPeriods[$organ])) {
+        // Calculate the difference in hours between the retrieval time and current time
+        $hoursElapsed = $retrievalTime->diffInHours($currentTime);
+
+        // Log the time and organ condition check
+        Log::info("Checking organ condition for {$organ}. Hours elapsed: {$hoursElapsed}");
+
+        // Compare the elapsed time to the allowed time for the organ
+        $maxHours = $viabilityPeriods[$organ];
+        if ($hoursElapsed > $maxHours) {
+            return 'Expired';  // If the time is over, it's expired
+        } else {
+            return 'Good';  // If it's still within the allowed time, it's good
+        }
+    }
+
+    return 'Unknown';  // For cases where the organ doesn't have a specific time condition
+}
+
+
+
+    
+    
     private function checkCompatibility($donor, $recipient)
     {
         $compatibility = [

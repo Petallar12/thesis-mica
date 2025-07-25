@@ -153,7 +153,7 @@
                             </div>
                             <div class="input-group"><label>Organ Size</label><input type="text" name="organ_size" /></div>
                             <div class="input-group"><label>Organ Function</label><input type="text" name="ogran_function" /></div>
-                            <div class="input-group"><label>Retrieval Time</label><input type="time" name="retrieval_time" /></div>
+                            <div class="input-group"><label>Retrieval Time</label><input type="datetime-local" name="retrieval_time" /></div>
                             <div class="input-group"><label>Organ Preservation Status</label><input type="text" name="organ_preservation_status" /></div>
                             <div class="input-group"><label>Condition of Organs</label><input type="text" name="condition_of_organs" /></div>
                             <div class="input-group"><label>Organ Compatibility</label><input type="text" name="organ_compability" /></div>
