@@ -10,7 +10,7 @@ use App\Http\Controllers\NewUserRegistrationController;
 use App\Http\Controllers\OrganStatusController;
 use App\Http\Controllers\DonorCardController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TimezoneController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -82,6 +82,9 @@ Route::post('/donors/archive', function(Request $request) {
 
     return response()->json(['success' => false, 'message' => 'Donor not found.']);
 })->name('donors.archive');
-
+Route::get('/timezone', function () {
+    echo date_default_timezone_get(); // This should print Asia/Manila
+});
+Route::get('/timezone', [TimezoneController::class, 'showTimezone']);
 
 require __DIR__.'/auth.php';
