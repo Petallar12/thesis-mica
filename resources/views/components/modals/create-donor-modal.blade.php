@@ -275,5 +275,50 @@ document.addEventListener('DOMContentLoaded', function () {
             ageInput.value = isNaN(age) || age < 0 ? '' : age;
         });
     }
+
+    // Handle donor form submit to show backend message (success or duplicate)
+    const saveBtn = document.getElementById('saveDonorBtn');
+    if (saveBtn) {
+        let isSubmitting = false;
+        saveBtn.addEventListener('click', function () {
+            if (isSubmitting) return;
+            isSubmitting = true;
+            saveBtn.disabled = true;
+            const form = document.getElementById('createDonorForm');
+            const formData = new FormData(form);
+            const successBox = document.getElementById('createSuccessMessage');
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                successBox.textContent = data.message;
+                successBox.style.display = 'block';
+                if (data.success) {
+                    successBox.style.backgroundColor = '#4CAF50'; // green
+                    setTimeout(() => {
+                        bootstrap.Modal.getInstance(document.getElementById('createDonorModal')).hide();
+                        location.reload();
+                    }, 1500);
+                } else {
+                    successBox.style.backgroundColor = '#f44336'; // red
+                    isSubmitting = false;
+                    saveBtn.disabled = false;
+                }
+            })
+            .catch(() => {
+                successBox.textContent = 'An error occurred while adding the donor.';
+                successBox.style.display = 'block';
+                successBox.style.backgroundColor = '#f44336';
+                isSubmitting = false;
+                saveBtn.disabled = false;
+            });
+        });
+    }
 });
 </script> 

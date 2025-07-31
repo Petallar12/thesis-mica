@@ -62,6 +62,12 @@ public function setInside(Donor $donor)
             // add other required fields as needed
         ]);
         $data = $request->all();
+        // Check for duplicate by first and last name (but always add)
+        $existingDonor = Donor::where('first_name', $data['first_name'])
+            ->where('last_name', $data['last_name'])
+            ->where('blood_type', $data['blood_type'])
+            ->where('birthday', $data['birthday'])
+            ->first();
         $donor = Donor::create($data);
         // Send email if contact_information is an email
         if (isset($data['contact_information']) && filter_var($data['contact_information'], FILTER_VALIDATE_EMAIL)) {
@@ -74,7 +80,7 @@ public function setInside(Donor $donor)
         }
         return response()->json([
             'success' => true,
-            'message' => 'Thank you for registering as a donor!'
+            'message' => $existingDonor ? 'Donor has a Donor Card' : 'Donor Successfully Added!'
         ]);
     }
 

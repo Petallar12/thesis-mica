@@ -311,47 +311,7 @@
                 });
             });
 
-            // Handle save button click for create modal
-            $('#saveDonorBtn').on('click', function() {
-                const form = $('#createDonorForm');
-                const formData = new FormData(form[0]);
-                
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        'Accept': 'application/json'
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            $('#createSuccessMessage').text('Donor added successfully!').show();
-                            setTimeout(() => {
-                                bootstrap.Modal.getInstance(document.getElementById('createDonorModal')).hide();
-                                location.reload();
-                            }, 1500);
-                        }
-                    },
-                    error: function(xhr) {
-                        const errors = xhr.responseJSON?.errors;
-                        if (errors) {
-                            const errorMessages = Object.values(errors).flat().join('\n');
-                            $('#createSuccessMessage')
-                                .text(errorMessages)
-                                .show()
-                                .css('background-color', '#f44336');
-                        } else {
-                            $('#createSuccessMessage')
-                                .text('An error occurred while adding the donor.')
-                                .show()
-                                .css('background-color', '#f44336');
-                        }
-                    }
-                });
-            });
+            // ...removed duplicate #saveDonorBtn AJAX handler to prevent double-saving...
 
             // Helper function to categorize information
             function categorizeInfo(label) {
