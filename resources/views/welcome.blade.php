@@ -28,10 +28,13 @@
   <section class="top_image">
     <img src="images/doctor.jpg" alt="Full Banner Image"/>
   </section>
+  <a href='https://www.facebook.com/LifeLinePHL ' target='_blank' class='facebook-link'>
+    https://www.facebook.com/LifeLinePHL/ PHINOS  </a>
 
   <!-- Content Section -->
+  <!-- Content Section -->
   <section class="content-section">
-    <!-- Second Image Block -->
+    <!-- First Image Block (Heart) -->
     <div class="content-block">
       <div class="iframe-box">
         <img src="images/heart.jpg" alt="Heart Image"/>
@@ -41,23 +44,32 @@
         <p>Every day, individuals across the world are waiting for a life-saving organ. The heartbreaking truth is that many won’t get the call in time. 
           But you have the power to change that. By registering as an organ donor, you can offer the gift of life. Your selfless decision could mean a 
           second chance for someone’s father, daughter, or friend. Donating organs saves lives and changes families forever.</p>
-        {{-- <button class="cta">CTA</button> --}}
       </div>
+
     </div>
 
-    <!-- Third Image Block -->
-    <div class="content-block reverse">
-      <div class="iframe-box">
-        <img src="images/liver.jpg" alt="Liver Image"/>
-      </div>
-      <div class="text">
-        <h2>You Can Give Them Hope.</h2>
-        <p>Thousands of people are waiting for the organ transplant that could save their life. Sadly, only a few get that chance. 
-          But you can help change the odds. Organ donation is a simple act with an immeasurable impact. Your decision to donate could mean the difference 
-          between life and death for someone in need. By becoming an organ donor, you become a hero to someone who may never have had the chance.</p>
-        {{-- <button class="cta">CTA</button> --}}
-      </div>
-    </div>
+          <a href='https://nktivascularsurgeryteam.wordpress.com/' target='_blank' class='facebook-link' >
+        Photos From:<br> https://nktivascularsurgeryteam.wordpress.com/ NKTI
+      </a>
+    <!-- Third Image Block (Liver) -->
+<div class="content-block reverse">
+  <div class="iframe-box">
+    <img src="images/liver.jpg" alt="Liver Image"/>
+  </div>
+  <div class="text">
+    <h2>You Can Give Them Hope.</h2>
+    <p>Thousands of people are waiting for the organ transplant that could save their life. Sadly, only a few get that chance. 
+      But you can help change the odds. Organ donation is a simple act with an immeasurable impact. Your decision to donate could mean the difference 
+      between life and death for someone in need. By becoming an organ donor, you become a hero to someone who may never have had the chance.</p>
+  </div>
+  <!-- Move the link below the liver image -->
+
+</div>
+          <div class="content-block reverse">
+  <a href='https://nktivascularsurgeryteam.wordpress.com/' target='_blank' class='facebook-link'>
+    Photos From:<br> https://nktivascularsurgeryteam.wordpress.com/ NKTI
+  </a>
+  </div>
   </section>
   <!-- Cards Section -->
 <div class="cards-section">

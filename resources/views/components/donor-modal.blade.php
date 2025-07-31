@@ -240,16 +240,12 @@
                     <label>Blood Type <span class="">*</span></label>
                     <select name="blood_type">
                         <option value="">Select Blood Type</option>
-                        <option value="O">O</option>
                                     <option value="O+">O+</option>
                                     <option value="O-">O-</option>
-                                    <option value="A">A</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
-                                    <option value="B">B</option>
                                     <option value="B+">B+</option>
                                     <option value="B-">B-</option>
-                                    <option value="AB">AB</option>
                                     <option value="AB+">AB+</option>
                                     <option value="AB-">AB-</option>
                     </select>

@@ -5,7 +5,10 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <div style="text-align: center; font-size: 1.7rem; font-weight: 600; color: #374151; margin-bottom: 1.2rem;">PhilNOS</div>
+        <!-- Logo Inside the Form (Above Email) -->
+        <div class="flex justify-center mb-6">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-20 w-auto">
+        </div>
 
         <!-- Email Address -->
         <div>
@@ -46,16 +49,25 @@
     </form>
 
     <style>
-  .submit {
-      padding: 0.2rem 1.5rem;
-      background-color: #9c0f3f !important;
-      border: none;
-      color: #fff !important;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-left:5px;
-  }
+        .submit {
+            padding: 0.2rem 1.5rem;
+            background-color: #9c0f3f !important;
+            border: none;
+            color: #fff !important;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left:5px;
+        }
+
+        /* Ensure the logo is within the form box */
+        /* .flex {
+            justify-content: center;
+            align-items: center;
+        } */
+
+        .h-20 {
+            height: 80px;
+        }
     </style>
 </x-guest-layout>
